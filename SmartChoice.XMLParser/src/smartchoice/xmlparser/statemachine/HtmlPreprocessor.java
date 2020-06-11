@@ -7,6 +7,7 @@ package smartchoice.xmlparser.statemachine;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import smartchoice.xmlparser.Config;
 
 /**
  *
@@ -14,16 +15,22 @@ import java.util.regex.Pattern;
  */
 public class HtmlPreprocessor {
 
-    public static String refineHtml(String src) {
-        src = getBody(src);
-        src = removeMiscTags(src);
+    private final Config config;
+
+    public HtmlPreprocessor(Config config) {
+        this.config = config;
+    }
+
+    public String refineHtml(String src) {
+        src = getNecessaryPart(src);
+        src = removeMiscs(src);
         XMLSyntaxChecker checker = new XMLSyntaxChecker();
         src = checker.check(src);
-        src = getBody(src);
+        src = getNecessaryPart(src);
         return src;
     }
 
-    public static String getBody(String src) {
+    public String getNecessaryPart(String src) {
         String result = src;
         String regex = "<body.*?></body>";
         Pattern pattern = Pattern.compile(regex);
@@ -34,7 +41,7 @@ public class HtmlPreprocessor {
         return result;
     }
 
-    public static String removeMiscTags(String src) {
+    public String removeMiscs(String src) {
         String result = src;
         String regex = "<script.*?</script>";
         result = result.replaceAll(regex, "");

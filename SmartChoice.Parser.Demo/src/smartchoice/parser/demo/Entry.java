@@ -5,20 +5,16 @@
  */
 package smartchoice.parser.demo;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
+import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.XMLEvent;
 import org.xml.sax.SAXException;
 import smartchoice.helper.FileHelper;
 import smartchoice.helper.HttpHelper;
-import smartchoice.helper.RegexHelper;
 import smartchoice.helper.XMLHelper;
-import smartchoice.xmlparser.HTMLPreprocessor;
-import smartchoice.xmlparser.HTMLPreprocessorOld;
+import smartchoice.xmlparser.Config;
+import smartchoice.xmlparser.ObjectFactory;
 import smartchoice.xmlparser.statemachine.HtmlPreprocessor;
 
 /**
@@ -30,12 +26,12 @@ public class Entry {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException, XMLStreamException, ParserConfigurationException, SAXException {
-//        HTMLPreprocessor processor = new HTMLPreprocessor();
+    public static void main(String[] args) throws IOException, XMLStreamException, ParserConfigurationException, SAXException, JAXBException {
         String file = "viec-lam-moi.html";
-//        processor.processURL("https://vieclam24h.vn/viec-lam-moi.html", file);
         String content = HttpHelper.getPageContent("https://vieclam24h.vn/viec-lam-moi.html");
-        content = HtmlPreprocessor.refineHtml(content);
+        Config config = XMLHelper.unmarshallDoc("config.xml", ObjectFactory.class);
+        HtmlPreprocessor processor = new HtmlPreprocessor(config);
+        content = processor.refineHtml(content);
         FileHelper.writeToFile(content, file);
         XMLHelper.parseDOMFromString(content);
     }
