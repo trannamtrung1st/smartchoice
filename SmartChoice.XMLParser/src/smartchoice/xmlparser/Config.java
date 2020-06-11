@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
- *                   &lt;element name="replacement">
+ *                   &lt;element name="replacement" maxOccurs="unbounded">
  *                     &lt;complexType>
  *                       &lt;complexContent>
  *                         &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -424,7 +424,7 @@ public class Config {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
-     *         &lt;element name="replacement">
+     *         &lt;element name="replacement" maxOccurs="unbounded">
      *           &lt;complexType>
      *             &lt;complexContent>
      *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
@@ -451,30 +451,35 @@ public class Config {
     public static class OpenBracketReplacements {
 
         @XmlElement(required = true)
-        protected Config.OpenBracketReplacements.Replacement replacement;
+        protected List<Config.OpenBracketReplacements.Replacement> replacement;
 
         /**
          * Gets the value of the replacement property.
          * 
-         * @return
-         *     possible object is
-         *     {@link Config.OpenBracketReplacements.Replacement }
-         *     
-         */
-        public Config.OpenBracketReplacements.Replacement getReplacement() {
-            return replacement;
-        }
-
-        /**
-         * Sets the value of the replacement property.
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the replacement property.
          * 
-         * @param value
-         *     allowed object is
-         *     {@link Config.OpenBracketReplacements.Replacement }
-         *     
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getReplacement().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link Config.OpenBracketReplacements.Replacement }
+         * 
+         * 
          */
-        public void setReplacement(Config.OpenBracketReplacements.Replacement value) {
-            this.replacement = value;
+        public List<Config.OpenBracketReplacements.Replacement> getReplacement() {
+            if (replacement == null) {
+                replacement = new ArrayList<Config.OpenBracketReplacements.Replacement>();
+            }
+            return this.replacement;
         }
 
 

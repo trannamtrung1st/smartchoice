@@ -8,12 +8,19 @@ package smartchoice.xmlparser.statemachine;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import smartchoice.xmlparser.Config;
 
 /**
  *
  * @author TNT
  */
 public class XMLSyntaxChecker {
+
+    private final Config config;
+
+    public XMLSyntaxChecker(Config config) {
+        this.config = config;
+    }
 
     public String check(String src) {
         src += " ";
@@ -35,7 +42,11 @@ public class XMLSyntaxChecker {
                 case SyntaxState.CONTENT:
                     if (c == SyntaxState.LT) {
                         state = SyntaxState.OPEN_BRACKET;
-                        writer.append(content.toString().trim().replace("&", "&amp;"));
+                        String contentStr = content.toString().trim();
+                        for (Config.OpenBracketReplacements.Replacement replacement : config.getOpenBracketReplacements().getReplacement()) {
+                            contentStr = contentStr.replace(replacement.getFrom(), replacement.getTo());
+                        }
+                        writer.append(contentStr);
                     } else {
                         content.append(c);
                     }
@@ -236,11 +247,10 @@ public class XMLSyntaxChecker {
         StringBuilder builder = new StringBuilder();
         for (Map.Entry<String, String> entry
                 : attributes.entrySet()) {
-            String value = entry.getValue().replace("&", "&amp;")
-                    .replaceAll("\"", "&quot;")
-                    .replaceAll("'", "&apos;")
-                    .replaceAll("<", "&lt;")
-                    .replaceAll(">", "&gt;");
+            String value = entry.getValue();
+            for (Config.AttrReplacements.Replacement replacement : config.getAttrReplacements().getReplacement()) {
+                value = value.replaceAll(replacement.getFrom(), replacement.getTo());
+            }
             builder.append(entry.getKey()).append("=").append("\"").append(value).append("\"").append(" ");
         }
         String result = builder.toString().trim();

@@ -24,7 +24,7 @@ public class HtmlPreprocessor {
     public String refineHtml(String src) {
         src = getNecessaryPart(src);
         src = removeMiscs(src);
-        XMLSyntaxChecker checker = new XMLSyntaxChecker();
+        XMLSyntaxChecker checker = new XMLSyntaxChecker(config);
         src = checker.check(src);
         src = getNecessaryPart(src);
         return src;
@@ -32,7 +32,7 @@ public class HtmlPreprocessor {
 
     public String getNecessaryPart(String src) {
         String result = src;
-        String regex = "<body.*?></body>";
+        String regex = config.getNeccessaryPart();
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(result);
         if (matcher.find()) {
@@ -43,14 +43,9 @@ public class HtmlPreprocessor {
 
     public String removeMiscs(String src) {
         String result = src;
-        String regex = "<script.*?</script>";
-        result = result.replaceAll(regex, "");
-        regex = "<style.*?</style>";//custom
-        result = result.replaceAll(regex, "");
-        regex = "<!--.*?-->";
-        result = result.replaceAll(regex, "");
-        regex = "&nbsp;";
-        result = result.replaceAll(regex, "");
+        for (String misc : config.getMiscs().getPattern()) {
+            result = result.replaceAll(misc, "");
+        }
         return result;
     }
 }
