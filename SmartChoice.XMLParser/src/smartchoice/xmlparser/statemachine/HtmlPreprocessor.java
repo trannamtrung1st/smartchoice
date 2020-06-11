@@ -33,7 +33,7 @@ public class HtmlPreprocessor {
     public String getNecessaryPart(String src) {
         String result = src;
         String regex = config.getNeccessaryPart();
-        Pattern pattern = Pattern.compile(regex);
+        Pattern pattern = Pattern.compile(regex, Pattern.DOTALL);
         Matcher matcher = pattern.matcher(result);
         if (matcher.find()) {
             result = matcher.group(0);
@@ -44,7 +44,9 @@ public class HtmlPreprocessor {
     public String removeMiscs(String src) {
         String result = src;
         for (String misc : config.getMiscs().getPattern()) {
-            result = result.replaceAll(misc, "");
+            Pattern pattern = Pattern.compile(misc, Pattern.DOTALL);
+            Matcher matcher = pattern.matcher(result);
+            result = matcher.replaceAll("");
         }
         return result;
     }
