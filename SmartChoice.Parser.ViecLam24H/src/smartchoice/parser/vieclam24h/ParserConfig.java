@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="baseUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="pages">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -53,13 +54,40 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "baseUrl",
     "pages"
 })
 @XmlRootElement(name = "parserConfig")
 public class ParserConfig {
 
     @XmlElement(required = true)
+    protected String baseUrl;
+    @XmlElement(required = true)
     protected ParserConfig.Pages pages;
+
+    /**
+     * Gets the value of the baseUrl property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    /**
+     * Sets the value of the baseUrl property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setBaseUrl(String value) {
+        this.baseUrl = value;
+    }
 
     /**
      * Gets the value of the pages property.

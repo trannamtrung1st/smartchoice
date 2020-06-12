@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <parserConfig xmlns="http://smartchoice.com/xml/parser-config">
+  <baseUrl>https://vieclam24h.vn</baseUrl>
   <pages>
     <page>
 	  <url>https://vieclam24h.vn/viec-lam-moi.html</url>

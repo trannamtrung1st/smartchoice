@@ -4,6 +4,7 @@
   <xs:element name="parserConfig">
     <xs:complexType>
       <xs:sequence>
+        <xs:element name="baseUrl" type="xs:string" />
         <xs:element name="pages">
           <xs:complexType>
             <xs:sequence>

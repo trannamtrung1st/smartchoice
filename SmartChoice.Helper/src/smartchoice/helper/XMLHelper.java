@@ -23,6 +23,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -37,6 +39,12 @@ public class XMLHelper {
         XMLInputFactory factory = XMLInputFactory.newFactory();
         XMLEventReader reader = factory.createXMLEventReader(stream);
         return reader;
+    }
+
+    public static XPath getXPath() {
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xpath = factory.newXPath();
+        return xpath;
     }
 
     public static Document parseDOMFromString(String srcXml) throws ParserConfigurationException, SAXException, IOException {
