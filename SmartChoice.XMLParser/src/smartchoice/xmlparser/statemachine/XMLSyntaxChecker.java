@@ -8,7 +8,7 @@ package smartchoice.xmlparser.statemachine;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
-import smartchoice.xmlparser.Config;
+import smartchoice.xmlparser.XmlParserConfig;
 
 /**
  *
@@ -16,9 +16,9 @@ import smartchoice.xmlparser.Config;
  */
 public class XMLSyntaxChecker {
 
-    private final Config config;
+    private final XmlParserConfig config;
 
-    public XMLSyntaxChecker(Config config) {
+    public XMLSyntaxChecker(XmlParserConfig config) {
         this.config = config;
     }
 
@@ -43,7 +43,7 @@ public class XMLSyntaxChecker {
                     if (c == SyntaxState.LT) {
                         state = SyntaxState.OPEN_BRACKET;
                         String contentStr = content.toString().trim();
-                        for (Config.OpenBracketReplacements.Replacement replacement : config.getOpenBracketReplacements().getReplacement()) {
+                        for (XmlParserConfig.OpenBracketReplacements.Replacement replacement : config.getOpenBracketReplacements().getReplacement()) {
                             contentStr = contentStr.replace(replacement.getFrom(), replacement.getTo());
                         }
                         writer.append(contentStr);
@@ -248,7 +248,7 @@ public class XMLSyntaxChecker {
         for (Map.Entry<String, String> entry
                 : attributes.entrySet()) {
             String value = entry.getValue();
-            for (Config.AttrReplacements.Replacement replacement : config.getAttrReplacements().getReplacement()) {
+            for (XmlParserConfig.AttrReplacements.Replacement replacement : config.getAttrReplacements().getReplacement()) {
                 value = value.replaceAll(replacement.getFrom(), replacement.getTo());
             }
             builder.append(entry.getKey()).append("=").append("\"").append(value).append("\"").append(" ");

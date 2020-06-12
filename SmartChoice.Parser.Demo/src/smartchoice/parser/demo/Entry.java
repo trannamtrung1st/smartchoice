@@ -13,7 +13,7 @@ import org.xml.sax.SAXException;
 import smartchoice.helper.FileHelper;
 import smartchoice.helper.HttpHelper;
 import smartchoice.helper.XMLHelper;
-import smartchoice.xmlparser.Config;
+import smartchoice.xmlparser.XmlParserConfig;
 import smartchoice.xmlparser.ObjectFactory;
 import smartchoice.xmlparser.statemachine.HtmlPreprocessor;
 
@@ -27,9 +27,9 @@ public class Entry {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException, XMLStreamException, ParserConfigurationException, SAXException, JAXBException {
-        String file = "viec-lam-moi.html";
-        String content = HttpHelper.getPageContent("https://vieclam24h.vn/viec-lam-moi.html");
-        Config config = XMLHelper.unmarshallDoc("config.xml", ObjectFactory.class);
+        String file = "nhan-vien-marketing.html";
+        String content = HttpHelper.getPageContent("https://vieclam24h.vn/marketing-pr/nhan-vien-marketing-pr-c53p0id3139423.html");
+        XmlParserConfig config = XMLHelper.unmarshallDoc("xml-parser-config.xml", ObjectFactory.class);
         HtmlPreprocessor processor = new HtmlPreprocessor(config);
         content = processor.refineHtml(content);
         FileHelper.writeToFile(content, file);

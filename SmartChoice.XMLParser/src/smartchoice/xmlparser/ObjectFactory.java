@@ -30,51 +30,51 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Config }
+     * Create an instance of {@link XmlParserConfig }
      * 
      */
-    public Config createConfig() {
-        return new Config();
+    public XmlParserConfig createXmlParserConfig() {
+        return new XmlParserConfig();
     }
 
     /**
-     * Create an instance of {@link Config.AttrReplacements }
+     * Create an instance of {@link XmlParserConfig.AttrReplacements }
      * 
      */
-    public Config.AttrReplacements createConfigAttrReplacements() {
-        return new Config.AttrReplacements();
+    public XmlParserConfig.AttrReplacements createXmlParserConfigAttrReplacements() {
+        return new XmlParserConfig.AttrReplacements();
     }
 
     /**
-     * Create an instance of {@link Config.OpenBracketReplacements }
+     * Create an instance of {@link XmlParserConfig.OpenBracketReplacements }
      * 
      */
-    public Config.OpenBracketReplacements createConfigOpenBracketReplacements() {
-        return new Config.OpenBracketReplacements();
+    public XmlParserConfig.OpenBracketReplacements createXmlParserConfigOpenBracketReplacements() {
+        return new XmlParserConfig.OpenBracketReplacements();
     }
 
     /**
-     * Create an instance of {@link Config.Miscs }
+     * Create an instance of {@link XmlParserConfig.Miscs }
      * 
      */
-    public Config.Miscs createConfigMiscs() {
-        return new Config.Miscs();
+    public XmlParserConfig.Miscs createXmlParserConfigMiscs() {
+        return new XmlParserConfig.Miscs();
     }
 
     /**
-     * Create an instance of {@link Config.AttrReplacements.Replacement }
+     * Create an instance of {@link XmlParserConfig.AttrReplacements.Replacement }
      * 
      */
-    public Config.AttrReplacements.Replacement createConfigAttrReplacementsReplacement() {
-        return new Config.AttrReplacements.Replacement();
+    public XmlParserConfig.AttrReplacements.Replacement createXmlParserConfigAttrReplacementsReplacement() {
+        return new XmlParserConfig.AttrReplacements.Replacement();
     }
 
     /**
-     * Create an instance of {@link Config.OpenBracketReplacements.Replacement }
+     * Create an instance of {@link XmlParserConfig.OpenBracketReplacements.Replacement }
      * 
      */
-    public Config.OpenBracketReplacements.Replacement createConfigOpenBracketReplacementsReplacement() {
-        return new Config.OpenBracketReplacements.Replacement();
+    public XmlParserConfig.OpenBracketReplacements.Replacement createXmlParserConfigOpenBracketReplacementsReplacement() {
+        return new XmlParserConfig.OpenBracketReplacements.Replacement();
     }
 
 }

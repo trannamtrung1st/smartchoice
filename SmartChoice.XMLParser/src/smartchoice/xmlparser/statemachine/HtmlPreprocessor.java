@@ -7,7 +7,7 @@ package smartchoice.xmlparser.statemachine;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import smartchoice.xmlparser.Config;
+import smartchoice.xmlparser.XmlParserConfig;
 
 /**
  *
@@ -15,9 +15,9 @@ import smartchoice.xmlparser.Config;
  */
 public class HtmlPreprocessor {
 
-    private final Config config;
+    private final XmlParserConfig config;
 
-    public HtmlPreprocessor(Config config) {
+    public HtmlPreprocessor(XmlParserConfig config) {
         this.config = config;
     }
 

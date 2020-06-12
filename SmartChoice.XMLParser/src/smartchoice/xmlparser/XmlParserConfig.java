@@ -91,17 +91,17 @@ import javax.xml.bind.annotation.XmlType;
     "openBracketReplacements",
     "attrReplacements"
 })
-@XmlRootElement(name = "config")
-public class Config {
+@XmlRootElement(name = "xmlParserConfig")
+public class XmlParserConfig {
 
     @XmlElement(required = true)
     protected String neccessaryPart;
     @XmlElement(required = true)
-    protected Config.Miscs miscs;
+    protected XmlParserConfig.Miscs miscs;
     @XmlElement(required = true)
-    protected Config.OpenBracketReplacements openBracketReplacements;
+    protected XmlParserConfig.OpenBracketReplacements openBracketReplacements;
     @XmlElement(required = true)
-    protected Config.AttrReplacements attrReplacements;
+    protected XmlParserConfig.AttrReplacements attrReplacements;
 
     /**
      * Gets the value of the neccessaryPart property.
@@ -132,10 +132,10 @@ public class Config {
      * 
      * @return
      *     possible object is
-     *     {@link Config.Miscs }
+     *     {@link XmlParserConfig.Miscs }
      *     
      */
-    public Config.Miscs getMiscs() {
+    public XmlParserConfig.Miscs getMiscs() {
         return miscs;
     }
 
@@ -144,10 +144,10 @@ public class Config {
      * 
      * @param value
      *     allowed object is
-     *     {@link Config.Miscs }
+     *     {@link XmlParserConfig.Miscs }
      *     
      */
-    public void setMiscs(Config.Miscs value) {
+    public void setMiscs(XmlParserConfig.Miscs value) {
         this.miscs = value;
     }
 
@@ -156,10 +156,10 @@ public class Config {
      * 
      * @return
      *     possible object is
-     *     {@link Config.OpenBracketReplacements }
+     *     {@link XmlParserConfig.OpenBracketReplacements }
      *     
      */
-    public Config.OpenBracketReplacements getOpenBracketReplacements() {
+    public XmlParserConfig.OpenBracketReplacements getOpenBracketReplacements() {
         return openBracketReplacements;
     }
 
@@ -168,10 +168,10 @@ public class Config {
      * 
      * @param value
      *     allowed object is
-     *     {@link Config.OpenBracketReplacements }
+     *     {@link XmlParserConfig.OpenBracketReplacements }
      *     
      */
-    public void setOpenBracketReplacements(Config.OpenBracketReplacements value) {
+    public void setOpenBracketReplacements(XmlParserConfig.OpenBracketReplacements value) {
         this.openBracketReplacements = value;
     }
 
@@ -180,10 +180,10 @@ public class Config {
      * 
      * @return
      *     possible object is
-     *     {@link Config.AttrReplacements }
+     *     {@link XmlParserConfig.AttrReplacements }
      *     
      */
-    public Config.AttrReplacements getAttrReplacements() {
+    public XmlParserConfig.AttrReplacements getAttrReplacements() {
         return attrReplacements;
     }
 
@@ -192,10 +192,10 @@ public class Config {
      * 
      * @param value
      *     allowed object is
-     *     {@link Config.AttrReplacements }
+     *     {@link XmlParserConfig.AttrReplacements }
      *     
      */
-    public void setAttrReplacements(Config.AttrReplacements value) {
+    public void setAttrReplacements(XmlParserConfig.AttrReplacements value) {
         this.attrReplacements = value;
     }
 
@@ -237,7 +237,7 @@ public class Config {
     public static class AttrReplacements {
 
         @XmlElement(required = true)
-        protected List<Config.AttrReplacements.Replacement> replacement;
+        protected List<XmlParserConfig.AttrReplacements.Replacement> replacement;
 
         /**
          * Gets the value of the replacement property.
@@ -257,13 +257,13 @@ public class Config {
          * 
          * <p>
          * Objects of the following type(s) are allowed in the list
-         * {@link Config.AttrReplacements.Replacement }
+         * {@link XmlParserConfig.AttrReplacements.Replacement }
          * 
          * 
          */
-        public List<Config.AttrReplacements.Replacement> getReplacement() {
+        public List<XmlParserConfig.AttrReplacements.Replacement> getReplacement() {
             if (replacement == null) {
-                replacement = new ArrayList<Config.AttrReplacements.Replacement>();
+                replacement = new ArrayList<XmlParserConfig.AttrReplacements.Replacement>();
             }
             return this.replacement;
         }
@@ -451,7 +451,7 @@ public class Config {
     public static class OpenBracketReplacements {
 
         @XmlElement(required = true)
-        protected List<Config.OpenBracketReplacements.Replacement> replacement;
+        protected List<XmlParserConfig.OpenBracketReplacements.Replacement> replacement;
 
         /**
          * Gets the value of the replacement property.
@@ -471,13 +471,13 @@ public class Config {
          * 
          * <p>
          * Objects of the following type(s) are allowed in the list
-         * {@link Config.OpenBracketReplacements.Replacement }
+         * {@link XmlParserConfig.OpenBracketReplacements.Replacement }
          * 
          * 
          */
-        public List<Config.OpenBracketReplacements.Replacement> getReplacement() {
+        public List<XmlParserConfig.OpenBracketReplacements.Replacement> getReplacement() {
             if (replacement == null) {
-                replacement = new ArrayList<Config.OpenBracketReplacements.Replacement>();
+                replacement = new ArrayList<XmlParserConfig.OpenBracketReplacements.Replacement>();
             }
             return this.replacement;
         }

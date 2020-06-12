@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<config xmlns="http://smartchoice.com/xml/config">
+<xmlParserConfig xmlns="http://smartchoice.com/xml/xml-parser-config">
   <neccessaryPart><![CDATA[<body.*?</body>]]></neccessaryPart>
   <miscs>
     <pattern><![CDATA[<script.*?</script>]]></pattern>
@@ -35,4 +35,4 @@
       <to>&amp;gt;</to>
     </replacement>
   </attrReplacements>
-</config>
+</xmlParserConfig>
