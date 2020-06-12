@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parserConfig xmlns="http://smartchoice.com/xml/parser-config">
+  <pages>
+    <page>
+	  <url>https://vieclam24h.vn/viec-lam-moi.html</url>
+      <jobLinksXPath>//span[contains(@class,'title-blockjob-main')]/a[1]/@href</jobLinksXPath>
+      <pagingLinksXPath>//*[@class='pagination']//li[contains(@class,'pagination')]/a/@href</pagingLinksXPath>
+    </page>
+	<page>
+	  <url>https://vieclam24h.vn/viec-lam-tuyen-gap.html</url>
+      <jobLinksXPath>//span[contains(@class,'title-blockjob-main')]/a[1]/@href</jobLinksXPath>
+      <pagingLinksXPath>//*[@class='pagination']//li[contains(@class,'pagination')]/a/@href</pagingLinksXPath>
+    </page>
+  </pages>
+</parserConfig>
