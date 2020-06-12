@@ -5,11 +5,26 @@
  */
 package smartchoice.parser.vieclam24h;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Templates;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -31,12 +46,14 @@ public class Parser {
     protected ParserConfig parserConfig;
     protected XPath xpath;
     protected List<String> jobLinks;
+    protected Templates jobTemplate;
 
-    public Parser(XmlParserConfig xmlParserConfig, ParserConfig parserConfig) {
+    public Parser(XmlParserConfig xmlParserConfig, ParserConfig parserConfig, Templates jobTemplate) {
         this.xmlParserConfig = xmlParserConfig;
         this.parserConfig = parserConfig;
         this.xpath = XMLHelper.getXPath();
         this.jobLinks = new ArrayList<>();
+        this.jobTemplate = jobTemplate;
     }
 
     public void start() {
@@ -71,10 +88,36 @@ public class Parser {
         //get uncrawled links only
         filterLinks();
         System.out.println(jobLinks.size());
+        for (String jobLink : jobLinks) {
+            try {
+                System.out.println("Start parsing page: " + jobLink);
+                String pageContent = preprocess(jobLink);
+                String modelXml = transform(pageContent);
+                System.out.println(modelXml);
+                System.out.println("Finish parsing page: " + jobLink);
+                System.out.println("------------------------");
+            } catch (IOException | TransformerException e) {
+                System.out.println("Parsing error: " + jobLink);
+                e.printStackTrace();
+            }
+        }
     }
 
     protected void filterLinks() {
         //TODO
+    }
+
+    protected String transform(String pageContent) throws TransformerConfigurationException, FileNotFoundException, TransformerException {
+        // Use the template to create a transformer
+        Transformer xformer = jobTemplate.newTransformer();
+        // Prepare the input and output files
+        Source source = new StreamSource(new StringReader(pageContent));
+        StringWriter writer = new StringWriter();
+        Result result = new StreamResult(writer);
+        // Apply the xsl file to the source file and write the result
+        // to the output file
+        xformer.transform(source, result);
+        return writer.toString();
     }
 
     protected String preprocess(String url) throws IOException {
@@ -95,7 +138,7 @@ public class Parser {
 
     protected String resolveFullUrl(ParserConfig.Pages.Page page, String relPath) {
         return relPath.startsWith("http") ? relPath
-                : ((parserConfig.getBaseUrl() + "/" + relPath).replace("//", "/"));
+                : ((parserConfig.getBaseUrl() + (relPath.startsWith("/") ? relPath : "/" + relPath)));
     }
 
 }

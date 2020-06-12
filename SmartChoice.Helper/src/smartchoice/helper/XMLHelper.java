@@ -11,6 +11,8 @@ import com.sun.tools.xjc.api.S2JJAXBModel;
 import com.sun.tools.xjc.api.SchemaCompiler;
 import com.sun.tools.xjc.api.XJC;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.xml.bind.JAXBContext;
@@ -23,6 +25,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.transform.Templates;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
@@ -39,6 +45,14 @@ public class XMLHelper {
         XMLInputFactory factory = XMLInputFactory.newFactory();
         XMLEventReader reader = factory.createXMLEventReader(stream);
         return reader;
+    }
+
+    public static Templates getTemplates(String xslFile) throws TransformerConfigurationException, FileNotFoundException {
+        TransformerFactory factory = TransformerFactory.newInstance();
+        // Use the factory to create a template containing the xsl file
+        Templates template = factory.newTemplates(new StreamSource(
+                new FileInputStream(xslFile)));
+        return template;
     }
 
     public static XPath getXPath() {
