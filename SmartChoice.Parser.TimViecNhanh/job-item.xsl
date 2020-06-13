@@ -2,88 +2,74 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:template match="/">
     <xsl:param name="url"/>
+    <xsl:param name="code"/>
     <jobItem>
       <url>
         <xsl:value-of select="$url"/>
       </url>
-      <!--Job overview-->
-      <xsl:apply-templates select="//*[contains(@class,'box_chi_tiet_cong_viec')]"/>
-
       <code>
-        <xsl:value-of select="normalize-space(substring-after(//p[@class='text_grey2 font12 mt8 mb12']//span[2], 'Mã:'))"/>
+        <xsl:value-of select="$code"/>
       </code>
-
       <!--Job info-->
-      <xsl:apply-templates select="//*[contains(@class,'job_detail')]"/>
-
-      <!--Job detail-->
-      <xsl:apply-templates select="//*[@id='ttd_detail']"/>
+      <xsl:apply-templates select="//section"/>
     </jobItem>
   </xsl:template>
 
   <!--Job overview-->
-  <xsl:template match="//*[contains(@class,'box_chi_tiet_cong_viec')]">
+  <xsl:template match="//section">
     <jobName>
-      <xsl:value-of select="//h1[contains(@class,'title_big')]"/>
+      <xsl:value-of select="//*[@id='left-content']/header/h1/span"/>
     </jobName>
     <company>
       <detailUrl>
-        <xsl:value-of select="//p[@class='font16']//a/@href"/>
+        <xsl:value-of select="div[3]/h3/a/@href"/>
       </detailUrl>
       <name>
-        <xsl:value-of select="//p[@class='font16']//a"/>
+        <xsl:value-of select="div[3]/h3/a"/>
       </name>
     </company>
-  </xsl:template>
-
-  <!--Job info-->
-  <xsl:template match="//*[contains(@class,'job_detail')]">
     <salaryRange>
-      <xsl:value-of select="//i[contains(@class,'icon-money')]/following-sibling::span/span[@class='job_value']"/>
+      <xsl:value-of select="div[6]/div/ul/li[1]/text()"/>
     </salaryRange>
     <expRequirement>
-      <xsl:value-of select="//i[contains(@class,'icon-exp')]/following-sibling::span/span[@class='job_value']"/>
+      <xsl:value-of select="div[6]/div/ul/li[2]/text()"/>
     </expRequirement>
     <degreeRequirement>
-      <xsl:value-of select="//i[contains(@class,'icon-edu')]/following-sibling::span/span[@class='job_value']"/>
+      <xsl:value-of select="div[6]/div/ul/li[3]/text()"/>
     </degreeRequirement>
     <numOfVacancy>
-      <xsl:value-of select="//i[contains(@class,'icon-quantity')]/following-sibling::span/span[@class='job_value']"/>
+      <xsl:value-of select="div[7]/ul/li[1]/text()"/>
     </numOfVacancy>
     <careerFields>
-      <xsl:for-each select="//i[contains(@class,'icon-career')]/following-sibling::h2/a[contains(@class,'job_value')]">
+      <xsl:for-each select="div[6]/div/ul/li[5]/a">
         <item>
           <xsl:value-of select="."/>
         </item>
       </xsl:for-each>
     </careerFields>
     <workLocation>
-      <xsl:value-of select="//i[contains(@class,'icon-address')]/following-sibling::span/a[contains(@class,'job_value')]"/>
+      <xsl:value-of select="div[6]/div/ul/li[4]/a"/>
     </workLocation>
     <genderRequirement>
-      <xsl:value-of select="//i[contains(@class,'icon-gender')]/following-sibling::span/span[@class='job_value']"/>
+      <xsl:value-of select="div[7]/ul/li[2]/text()"/>
     </genderRequirement>
-  </xsl:template>
-
-  <!--Job detail-->
-  <xsl:template match="//*[@id='ttd_detail']">
     <description>
-      <xsl:value-of select="normalize-space(following-sibling::*[@class='col-md-9 pr_0 mb_0 word_break'][1])"/>
+      <xsl:value-of select="normalize-space(table/tbody/tr[1]/td[2]/p)"/>
     </description>
     <benefit>
-      <xsl:value-of select="normalize-space(following-sibling::*[@class='col-md-9 pr_0 mb_0 word_break'][2])"/>
+      <xsl:value-of select="normalize-space(table/tbody/tr[3]/td[2]/p)"/>
     </benefit>
     <otherRequirement>
-      <xsl:value-of select="normalize-space(following-sibling::*[@class='col-md-9 pr_0 mb_0 word_break'][3])"/>
+      <xsl:value-of select="normalize-space(table/tbody/tr[2]/td[2]/p)"/>
     </otherRequirement>
     <expiredDate>
-      <xsl:value-of select="following-sibling::*[@class='col-md-9 pr_0 mb_0'][2]/span/span/span/span"/>
+      <xsl:value-of select="table/tbody/tr[4]/td[2]/b"/>
     </expiredDate>
     <contactPerson>
-      <xsl:value-of select="following-sibling::*[@class='col-md-9 pr_0 mb_0'][3]"/>
+      <xsl:value-of select="div[9]/div/table/tbody/tr[1]/td[2]/p"/>
     </contactPerson>
     <contactAddress>
-      <xsl:value-of select="following-sibling::*[@class='col-md-9 pr_0 mb_0'][4]"/>
+      <xsl:value-of select="div[9]/div/table/tbody/tr[2]/td[2]/p"/>
     </contactAddress>
   </xsl:template>
 </xsl:stylesheet>

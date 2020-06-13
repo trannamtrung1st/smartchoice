@@ -117,6 +117,9 @@ public class Parser {
         // Use the template to create a transformer
         Transformer xformer = jobTemplate.newTransformer();
         xformer.setParameter("url", pageUrl);
+        String code = pageUrl.substring(pageUrl.lastIndexOf('-') + 1, pageUrl.lastIndexOf('.'));
+        xformer.setParameter("code", code);
+
         // Prepare the input and output files
         Source source = new StreamSource(new StringReader(pageContent));
         StringWriter writer = new StringWriter();

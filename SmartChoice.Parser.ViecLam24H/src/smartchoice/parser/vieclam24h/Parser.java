@@ -29,7 +29,6 @@ import javax.xml.xpath.XPathExpressionException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import smartchoice.helper.FileHelper;
 import smartchoice.helper.HttpHelper;
 import smartchoice.helper.XMLHelper;
 import smartchoice.parser.vieclam24h.models.schema.JobItem;
@@ -101,9 +100,8 @@ public class Parser {
                 System.out.println("Start parsing page: " + jobLink);
                 String pageContent = preprocess(jobLink);
                 String modelXml = transform(jobLink, pageContent);
-                FileHelper.writeToFile(modelXml, "temp.xml");
                 JobItem jobItem = XMLHelper.unmarshallDocXml(modelXml, smartchoice.parser.vieclam24h.models.schema.ObjectFactory.class);
-                System.out.println(jobItem.getUrl());
+                System.out.println(jobItem.getJobName());
                 System.out.println("Finish parsing page: " + jobLink);
                 System.out.println("------------------------");
             } catch (IOException | TransformerException e) {

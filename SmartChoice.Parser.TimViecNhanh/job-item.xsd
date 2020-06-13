@@ -5,6 +5,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="url" type="xs:string" />
+        <xs:element name="code" type="xs:unsignedInt" />
         <xs:element name="jobName" type="xs:string" />
         <xs:element name="company">
           <xs:complexType>
@@ -14,7 +15,6 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="code" type="xs:string" />
         <xs:element name="salaryRange" type="xs:string" />
         <xs:element name="expRequirement" type="xs:string" />
         <xs:element name="degreeRequirement" type="xs:string" />
@@ -32,8 +32,8 @@
         <xs:element name="benefit" type="xs:string" />
         <xs:element name="otherRequirement" type="xs:string" />
         <xs:element name="expiredDate" type="xs:string" />
-        <xs:element name="contactPerson" type="xs:string" />
-        <xs:element name="contactAddress" type="xs:string" />
+        <xs:element name="contactPerson" />
+        <xs:element name="contactAddress" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

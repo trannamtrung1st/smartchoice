@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}unsignedInt"/>
  *         &lt;element name="jobName" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="company">
  *           &lt;complexType>
@@ -35,7 +36,6 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="salaryRange" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="expRequirement" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="degreeRequirement" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -57,8 +57,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="benefit" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="otherRequirement" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="expiredDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="contactPerson" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="contactAddress" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="contactPerson" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
+ *         &lt;element name="contactAddress" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -70,9 +70,9 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "url",
+    "code",
     "jobName",
     "company",
-    "code",
     "salaryRange",
     "expRequirement",
     "degreeRequirement",
@@ -92,12 +92,12 @@ public class JobItem {
 
     @XmlElement(required = true)
     protected String url;
+    @XmlSchemaType(name = "unsignedInt")
+    protected long code;
     @XmlElement(required = true)
     protected String jobName;
     @XmlElement(required = true)
     protected JobItem.Company company;
-    @XmlElement(required = true)
-    protected String code;
     @XmlElement(required = true)
     protected String salaryRange;
     @XmlElement(required = true)
@@ -121,9 +121,9 @@ public class JobItem {
     @XmlElement(required = true)
     protected String expiredDate;
     @XmlElement(required = true)
-    protected String contactPerson;
+    protected Object contactPerson;
     @XmlElement(required = true)
-    protected String contactAddress;
+    protected Object contactAddress;
 
     /**
      * Gets the value of the url property.
@@ -147,6 +147,22 @@ public class JobItem {
      */
     public void setUrl(String value) {
         this.url = value;
+    }
+
+    /**
+     * Gets the value of the code property.
+     * 
+     */
+    public long getCode() {
+        return code;
+    }
+
+    /**
+     * Sets the value of the code property.
+     * 
+     */
+    public void setCode(long value) {
+        this.code = value;
     }
 
     /**
@@ -195,30 +211,6 @@ public class JobItem {
      */
     public void setCompany(JobItem.Company value) {
         this.company = value;
-    }
-
-    /**
-     * Gets the value of the code property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCode() {
-        return code;
-    }
-
-    /**
-     * Sets the value of the code property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCode(String value) {
-        this.code = value;
     }
 
     /**
@@ -482,10 +474,10 @@ public class JobItem {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public String getContactPerson() {
+    public Object getContactPerson() {
         return contactPerson;
     }
 
@@ -494,10 +486,10 @@ public class JobItem {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public void setContactPerson(String value) {
+    public void setContactPerson(Object value) {
         this.contactPerson = value;
     }
 
@@ -506,10 +498,10 @@ public class JobItem {
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public String getContactAddress() {
+    public Object getContactAddress() {
         return contactAddress;
     }
 
@@ -518,10 +510,10 @@ public class JobItem {
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Object }
      *     
      */
-    public void setContactAddress(String value) {
+    public void setContactAddress(Object value) {
         this.contactAddress = value;
     }
 
