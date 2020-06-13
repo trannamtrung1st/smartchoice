@@ -6,9 +6,22 @@
       <url>
         <xsl:value-of select="$url"/>
       </url>
-      <!--Job overview-->
-      <xsl:apply-templates select="//*[contains(@class,'box_chi_tiet_cong_viec')]"/>
 
+      <!--Company info-->
+      <company>
+        <xsl:apply-templates select="//*[@id='sidebar_ntd_info']"/>
+        <name>
+          <xsl:value-of select="/body/h3"/>
+        </name>
+        <address>
+          <xsl:value-of select="/body/address"/>
+        </address>  
+      </company>
+
+      <!--Job overview-->
+      <jobName>
+        <xsl:value-of select="//*[contains(@class,'box_chi_tiet_cong_viec')]//h1[contains(@class,'title_big')]"/>
+      </jobName>
       <code>
         <xsl:value-of select="normalize-space(substring-after(//p[@class='text_grey2 font12 mt8 mb12']//span[2], 'Mã:'))"/>
       </code>
@@ -20,20 +33,15 @@
       <xsl:apply-templates select="//*[@id='ttd_detail']"/>
     </jobItem>
   </xsl:template>
-
-  <!--Job overview-->
-  <xsl:template match="//*[contains(@class,'box_chi_tiet_cong_viec')]">
-    <jobName>
-      <xsl:value-of select="//h1[contains(@class,'title_big')]"/>
-    </jobName>
-    <company>
-      <detailUrl>
-        <xsl:value-of select="//p[@class='font16']//a/@href"/>
-      </detailUrl>
-      <name>
-        <xsl:value-of select="//p[@class='font16']//a"/>
-      </name>
-    </company>
+  
+  <!--Company info-->
+  <xsl:template match="//*[@id='sidebar_ntd_info']">
+    <detailUrl>
+      <xsl:value-of select="a/@href"/>
+    </detailUrl>
+    <image>
+      <xsl:value-of select="a/div/img/@src"/>
+    </image>
   </xsl:template>
 
   <!--Job info-->

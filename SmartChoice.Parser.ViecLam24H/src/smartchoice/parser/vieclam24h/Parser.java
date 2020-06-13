@@ -99,8 +99,11 @@ public class Parser {
             try {
                 System.out.println("Start parsing page: " + jobLink);
                 String pageContent = preprocess(jobLink);
+//                FileHelper.writeToFile(pageContent, "temp.html");
                 String modelXml = transform(jobLink, pageContent);
+//                FileHelper.writeToFile(modelXml, "temp.xml");
                 JobItem jobItem = XMLHelper.unmarshallDocXml(modelXml, smartchoice.parser.vieclam24h.models.schema.ObjectFactory.class);
+                processJobItem(jobItem);
                 System.out.println(jobItem.getJobName());
                 System.out.println("Finish parsing page: " + jobLink);
                 System.out.println("------------------------");
@@ -111,6 +114,15 @@ public class Parser {
                 Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    protected void processJobItem(JobItem jobItem) {
+        //TODO
+        processCompany(jobItem.getCompany());
+    }
+
+    protected void processCompany(JobItem.Company company) {
+        //TODO
     }
 
     protected String transform(String pageUrl, String pageContent) throws TransformerConfigurationException, FileNotFoundException, TransformerException {

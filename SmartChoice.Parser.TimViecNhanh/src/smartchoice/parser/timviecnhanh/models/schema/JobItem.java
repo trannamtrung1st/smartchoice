@@ -31,6 +31,8 @@ import javax.xml.bind.annotation.XmlType;
  *                 &lt;sequence>
  *                   &lt;element name="detailUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="image" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="address" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
@@ -67,8 +69,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="benefit" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="otherRequirement" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="expiredDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="contactPerson" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
- *         &lt;element name="contactAddress" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
+ *         &lt;element name="contactPerson" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="contactAddress" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -131,9 +133,9 @@ public class JobItem {
     @XmlElement(required = true)
     protected String expiredDate;
     @XmlElement(required = true)
-    protected Object contactPerson;
+    protected String contactPerson;
     @XmlElement(required = true)
-    protected Object contactAddress;
+    protected String contactAddress;
 
     /**
      * Gets the value of the url property.
@@ -484,10 +486,10 @@ public class JobItem {
      * 
      * @return
      *     possible object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
-    public Object getContactPerson() {
+    public String getContactPerson() {
         return contactPerson;
     }
 
@@ -496,10 +498,10 @@ public class JobItem {
      * 
      * @param value
      *     allowed object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
-    public void setContactPerson(Object value) {
+    public void setContactPerson(String value) {
         this.contactPerson = value;
     }
 
@@ -508,10 +510,10 @@ public class JobItem {
      * 
      * @return
      *     possible object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
-    public Object getContactAddress() {
+    public String getContactAddress() {
         return contactAddress;
     }
 
@@ -520,10 +522,10 @@ public class JobItem {
      * 
      * @param value
      *     allowed object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
-    public void setContactAddress(Object value) {
+    public void setContactAddress(String value) {
         this.contactAddress = value;
     }
 
@@ -600,6 +602,8 @@ public class JobItem {
      *       &lt;sequence>
      *         &lt;element name="detailUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="image" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="address" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -611,7 +615,9 @@ public class JobItem {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "detailUrl",
-        "name"
+        "name",
+        "image",
+        "address"
     })
     public static class Company {
 
@@ -619,6 +625,10 @@ public class JobItem {
         protected String detailUrl;
         @XmlElement(required = true)
         protected String name;
+        @XmlElement(required = true)
+        protected String image;
+        @XmlElement(required = true)
+        protected String address;
 
         /**
          * Gets the value of the detailUrl property.
@@ -666,6 +676,54 @@ public class JobItem {
          */
         public void setName(String value) {
             this.name = value;
+        }
+
+        /**
+         * Gets the value of the image property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getImage() {
+            return image;
+        }
+
+        /**
+         * Sets the value of the image property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setImage(String value) {
+            this.image = value;
+        }
+
+        /**
+         * Gets the value of the address property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getAddress() {
+            return address;
+        }
+
+        /**
+         * Sets the value of the address property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setAddress(String value) {
+            this.address = value;
         }
 
     }

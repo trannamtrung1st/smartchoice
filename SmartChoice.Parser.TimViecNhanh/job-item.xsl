@@ -10,8 +10,18 @@
       <code>
         <xsl:value-of select="$code"/>
       </code>
+
       <!--Job info-->
       <xsl:apply-templates select="//section"/>
+
+      <!--Contact info-->
+      <contactPerson>
+        <xsl:value-of select="//div[@class='block-info-company']//tr[1]/td/p"/>
+      </contactPerson>
+      <contactAddress>
+        <xsl:value-of select="//div[@class='block-info-company']//tr[2]/td/p"/>
+      </contactAddress>
+      
     </jobItem>
   </xsl:template>
 
@@ -22,11 +32,17 @@
     </jobName>
     <company>
       <detailUrl>
-        <xsl:value-of select="div[3]/h3/a/@href"/>
+        <xsl:value-of select="div[33]/a/@href"/>
       </detailUrl>
       <name>
-        <xsl:value-of select="div[3]/h3/a"/>
+        <xsl:value-of select="div[33]/a"/>
       </name>
+      <image>
+        <xsl:value-of select="div[32]/div/div/div/div/img/@src"/>
+      </image>
+      <address>
+        <xsl:value-of select="p[2]/text()"/>
+      </address>
     </company>
     <salaryRange>
       <xsl:value-of select="div[6]/div/ul/li[1]/text()"/>
@@ -69,11 +85,5 @@
     <expiredDate>
       <xsl:value-of select="table/tbody/tr[4]/td[2]/b"/>
     </expiredDate>
-    <contactPerson>
-      <xsl:value-of select="div[9]/div/table/tbody/tr[1]/td[2]/p"/>
-    </contactPerson>
-    <contactAddress>
-      <xsl:value-of select="div[9]/div/table/tbody/tr[2]/td[2]/p"/>
-    </contactAddress>
   </xsl:template>
 </xsl:stylesheet>

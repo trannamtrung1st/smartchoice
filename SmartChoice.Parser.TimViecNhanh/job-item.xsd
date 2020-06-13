@@ -12,6 +12,8 @@
             <xs:sequence>
               <xs:element name="detailUrl" type="xs:string" />
               <xs:element name="name" type="xs:string" />
+              <xs:element name="image" type="xs:string" />
+              <xs:element name="address" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -38,8 +40,8 @@
         <xs:element name="benefit" type="xs:string" />
         <xs:element name="otherRequirement" type="xs:string" />
         <xs:element name="expiredDate" type="xs:string" />
-        <xs:element name="contactPerson" />
-        <xs:element name="contactAddress" />
+        <xs:element name="contactPerson" type="xs:string" />
+        <xs:element name="contactAddress" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

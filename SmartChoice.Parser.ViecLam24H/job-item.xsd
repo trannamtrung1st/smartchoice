@@ -5,15 +5,17 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="url" type="xs:string" />
-        <xs:element name="jobName" type="xs:string" />
         <xs:element name="company">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="detailUrl" type="xs:string" />
+              <xs:element name="image" type="xs:string" />
               <xs:element name="name" type="xs:string" />
+              <xs:element name="address" type="xs:string" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="jobName" type="xs:string" />
         <xs:element name="code" type="xs:string" />
         <xs:element name="salaryRange" type="xs:string" />
         <xs:element name="expRequirement" type="xs:string" />

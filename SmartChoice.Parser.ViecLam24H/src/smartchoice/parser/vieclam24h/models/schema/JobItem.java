@@ -22,19 +22,21 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="jobName" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="company">
  *           &lt;complexType>
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
  *                   &lt;element name="detailUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="image" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *                   &lt;element name="address" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                 &lt;/sequence>
  *               &lt;/restriction>
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;element name="jobName" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="salaryRange" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="expRequirement" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -80,8 +82,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "url",
-    "jobName",
     "company",
+    "jobName",
     "code",
     "salaryRange",
     "expRequirement",
@@ -103,9 +105,9 @@ public class JobItem {
     @XmlElement(required = true)
     protected String url;
     @XmlElement(required = true)
-    protected String jobName;
-    @XmlElement(required = true)
     protected JobItem.Company company;
+    @XmlElement(required = true)
+    protected String jobName;
     @XmlElement(required = true)
     protected String code;
     @XmlElement(required = true)
@@ -160,30 +162,6 @@ public class JobItem {
     }
 
     /**
-     * Gets the value of the jobName property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getJobName() {
-        return jobName;
-    }
-
-    /**
-     * Sets the value of the jobName property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setJobName(String value) {
-        this.jobName = value;
-    }
-
-    /**
      * Gets the value of the company property.
      * 
      * @return
@@ -205,6 +183,30 @@ public class JobItem {
      */
     public void setCompany(JobItem.Company value) {
         this.company = value;
+    }
+
+    /**
+     * Gets the value of the jobName property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getJobName() {
+        return jobName;
+    }
+
+    /**
+     * Sets the value of the jobName property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setJobName(String value) {
+        this.jobName = value;
     }
 
     /**
@@ -607,7 +609,9 @@ public class JobItem {
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
      *         &lt;element name="detailUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="image" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+     *         &lt;element name="address" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *       &lt;/sequence>
      *     &lt;/restriction>
      *   &lt;/complexContent>
@@ -619,14 +623,20 @@ public class JobItem {
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
         "detailUrl",
-        "name"
+        "image",
+        "name",
+        "address"
     })
     public static class Company {
 
         @XmlElement(required = true)
         protected String detailUrl;
         @XmlElement(required = true)
+        protected String image;
+        @XmlElement(required = true)
         protected String name;
+        @XmlElement(required = true)
+        protected String address;
 
         /**
          * Gets the value of the detailUrl property.
@@ -653,6 +663,30 @@ public class JobItem {
         }
 
         /**
+         * Gets the value of the image property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getImage() {
+            return image;
+        }
+
+        /**
+         * Sets the value of the image property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setImage(String value) {
+            this.image = value;
+        }
+
+        /**
          * Gets the value of the name property.
          * 
          * @return
@@ -674,6 +708,30 @@ public class JobItem {
          */
         public void setName(String value) {
             this.name = value;
+        }
+
+        /**
+         * Gets the value of the address property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getAddress() {
+            return address;
+        }
+
+        /**
+         * Sets the value of the address property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setAddress(String value) {
+            this.address = value;
         }
 
     }
