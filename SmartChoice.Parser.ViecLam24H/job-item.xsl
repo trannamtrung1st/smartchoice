@@ -6,7 +6,10 @@
       <url>
         <xsl:value-of select="$url"/>
       </url>
-
+      <updatedDate>
+        <xsl:value-of select="normalize-space(substring-after(/body/p[6]/span[3],'Ngày làm mới:'))"/>
+      </updatedDate>
+      
       <!--Company info-->
       <company>
         <xsl:apply-templates select="//*[@id='sidebar_ntd_info']"/>

@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="updatedDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="company">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -82,6 +83,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "url",
+    "updatedDate",
     "company",
     "jobName",
     "code",
@@ -104,6 +106,8 @@ public class JobItem {
 
     @XmlElement(required = true)
     protected String url;
+    @XmlElement(required = true)
+    protected String updatedDate;
     @XmlElement(required = true)
     protected JobItem.Company company;
     @XmlElement(required = true)
@@ -159,6 +163,30 @@ public class JobItem {
      */
     public void setUrl(String value) {
         this.url = value;
+    }
+
+    /**
+     * Gets the value of the updatedDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUpdatedDate() {
+        return updatedDate;
+    }
+
+    /**
+     * Sets the value of the updatedDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUpdatedDate(String value) {
+        this.updatedDate = value;
     }
 
     /**

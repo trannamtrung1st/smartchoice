@@ -21,7 +21,7 @@
       <contactAddress>
         <xsl:value-of select="//div[@class='block-info-company']//tr[2]/td/p"/>
       </contactAddress>
-      
+
     </jobItem>
   </xsl:template>
 
@@ -30,6 +30,9 @@
     <jobName>
       <xsl:value-of select="//*[@id='left-content']/header/h1/span"/>
     </jobName>
+    <updatedDate>
+      <xsl:value-of select="//*[@id='left-content']/article/div/div/time"/>
+    </updatedDate>
     <company>
       <detailUrl>
         <xsl:value-of select="div[33]/a/@href"/>

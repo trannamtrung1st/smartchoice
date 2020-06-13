@@ -24,6 +24,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}unsignedInt"/>
  *         &lt;element name="jobName" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="updatedDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="company">
  *           &lt;complexType>
  *             &lt;complexContent>
@@ -84,6 +85,7 @@ import javax.xml.bind.annotation.XmlType;
     "url",
     "code",
     "jobName",
+    "updatedDate",
     "company",
     "salaryRange",
     "expRequirement",
@@ -108,6 +110,8 @@ public class JobItem {
     protected long code;
     @XmlElement(required = true)
     protected String jobName;
+    @XmlElement(required = true)
+    protected String updatedDate;
     @XmlElement(required = true)
     protected JobItem.Company company;
     @XmlElement(required = true)
@@ -199,6 +203,30 @@ public class JobItem {
      */
     public void setJobName(String value) {
         this.jobName = value;
+    }
+
+    /**
+     * Gets the value of the updatedDate property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUpdatedDate() {
+        return updatedDate;
+    }
+
+    /**
+     * Sets the value of the updatedDate property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUpdatedDate(String value) {
+        this.updatedDate = value;
     }
 
     /**

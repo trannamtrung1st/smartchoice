@@ -5,6 +5,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element name="url" type="xs:string" />
+        <xs:element name="updatedDate" type="xs:string" />
         <xs:element name="company">
           <xs:complexType>
             <xs:sequence>
