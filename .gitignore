@@ -21,3 +21,11 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+/SmartChoice.Parser.ViecLam24H/nbproject/private/
+/SmartChoice.Console/nbproject/private/
+/SmartChoice.Console/build/
+/SmartChoice.Parser.ViecLam24H/build/
+/SmartChoice.Parser.ViecLam24H/dist/
+/SmartChoice.Parser.TimViecNhanh/nbproject/private/
+/SmartChoice.Parser.TimViecNhanh/build/
+/SmartChoice.Data/nbproject/private/

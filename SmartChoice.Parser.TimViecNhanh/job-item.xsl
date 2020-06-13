@@ -47,9 +47,13 @@
         </item>
       </xsl:for-each>
     </careerFields>
-    <workLocation>
-      <xsl:value-of select="div[6]/div/ul/li[4]/a"/>
-    </workLocation>
+    <workLocations>
+      <xsl:for-each select="div[6]/div/ul/li[4]/a">
+        <item>
+          <xsl:value-of select="."/>
+        </item>
+      </xsl:for-each>
+    </workLocations>
     <genderRequirement>
       <xsl:value-of select="div[7]/ul/li[2]/text()"/>
     </genderRequirement>

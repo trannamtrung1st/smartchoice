@@ -26,7 +26,13 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="workLocation" type="xs:string" />
+        <xs:element name="workLocations">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="item" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
         <xs:element name="genderRequirement" type="xs:string" />
         <xs:element name="description" type="xs:string" />
         <xs:element name="benefit" type="xs:string" />

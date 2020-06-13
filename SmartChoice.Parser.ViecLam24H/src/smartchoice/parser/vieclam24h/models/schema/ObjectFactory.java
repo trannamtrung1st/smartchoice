@@ -53,4 +53,12 @@ public class ObjectFactory {
         return new JobItem.CareerFields();
     }
 
+    /**
+     * Create an instance of {@link JobItem.WorkLocations }
+     * 
+     */
+    public JobItem.WorkLocations createJobItemWorkLocations() {
+        return new JobItem.WorkLocations();
+    }
+
 }

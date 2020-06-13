@@ -57,9 +57,13 @@
         </item>
       </xsl:for-each>
     </careerFields>
-    <workLocation>
-      <xsl:value-of select="//i[contains(@class,'icon-address')]/following-sibling::span/a[contains(@class,'job_value')]"/>
-    </workLocation>
+    <workLocations>
+      <xsl:for-each select="//i[contains(@class,'icon-address')]/following-sibling::span/a[contains(@class,'job_value')]">
+        <item>
+          <xsl:value-of select="."/>
+        </item>
+      </xsl:for-each>
+    </workLocations>
     <genderRequirement>
       <xsl:value-of select="//i[contains(@class,'icon-gender')]/following-sibling::span/span[@class='job_value']"/>
     </genderRequirement>

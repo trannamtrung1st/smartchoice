@@ -51,7 +51,17 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
- *         &lt;element name="workLocation" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="workLocations">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="item" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
  *         &lt;element name="genderRequirement" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="benefit" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -78,7 +88,7 @@ import javax.xml.bind.annotation.XmlType;
     "degreeRequirement",
     "numOfVacancy",
     "careerFields",
-    "workLocation",
+    "workLocations",
     "genderRequirement",
     "description",
     "benefit",
@@ -109,7 +119,7 @@ public class JobItem {
     @XmlElement(required = true)
     protected JobItem.CareerFields careerFields;
     @XmlElement(required = true)
-    protected String workLocation;
+    protected JobItem.WorkLocations workLocations;
     @XmlElement(required = true)
     protected String genderRequirement;
     @XmlElement(required = true)
@@ -334,27 +344,27 @@ public class JobItem {
     }
 
     /**
-     * Gets the value of the workLocation property.
+     * Gets the value of the workLocations property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link JobItem.WorkLocations }
      *     
      */
-    public String getWorkLocation() {
-        return workLocation;
+    public JobItem.WorkLocations getWorkLocations() {
+        return workLocations;
     }
 
     /**
-     * Sets the value of the workLocation property.
+     * Sets the value of the workLocations property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link JobItem.WorkLocations }
      *     
      */
-    public void setWorkLocation(String value) {
-        this.workLocation = value;
+    public void setWorkLocations(JobItem.WorkLocations value) {
+        this.workLocations = value;
     }
 
     /**
@@ -664,6 +674,66 @@ public class JobItem {
          */
         public void setName(String value) {
             this.name = value;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
+     *         &lt;element name="item" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "item"
+    })
+    public static class WorkLocations {
+
+        @XmlElement(required = true)
+        protected List<String> item;
+
+        /**
+         * Gets the value of the item property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the item property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getItem().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link String }
+         * 
+         * 
+         */
+        public List<String> getItem() {
+            if (item == null) {
+                item = new ArrayList<String>();
+            }
+            return this.item;
         }
 
     }
