@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Company.findAll", query = "SELECT c FROM Company c")
     , @NamedQuery(name = "Company.findById", query = "SELECT c FROM Company c WHERE c.id = :id")
+    , @NamedQuery(name = "Company.findByCode", query = "SELECT c FROM Company c WHERE c.code = :code")
     , @NamedQuery(name = "Company.findByName", query = "SELECT c FROM Company c WHERE c.name = :name")
     , @NamedQuery(name = "Company.findByAddress", query = "SELECT c FROM Company c WHERE c.address = :address")
     , @NamedQuery(name = "Company.findByImage", query = "SELECT c FROM Company c WHERE c.image = :image")
@@ -43,6 +44,9 @@ public class Company implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer id;
+    @Basic(optional = false)
+    @Column(nullable = false, length = 50)
+    private String code;
     @Basic(optional = false)
     @Column(nullable = false, length = 255)
     private String name;
@@ -62,8 +66,9 @@ public class Company implements Serializable {
         this.id = id;
     }
 
-    public Company(Integer id, String name) {
+    public Company(Integer id, String code, String name) {
         this.id = id;
+        this.code = code;
         this.name = name;
     }
 
@@ -73,6 +78,14 @@ public class Company implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

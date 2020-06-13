@@ -6,6 +6,8 @@
 package smartchoice.data.daos;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
@@ -36,5 +38,9 @@ public abstract class BaseDAO<T> {
 
     public T findById(Class<T> eClass, Object id) {
         return eManager.find(eClass, id);
+    }
+
+    public <Return> TypedQuery<Return> query(CriteriaQuery<Return> crit) {
+        return eManager.createQuery(crit);
     }
 }

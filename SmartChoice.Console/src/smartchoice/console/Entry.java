@@ -34,7 +34,7 @@ public class Entry {
             EntityManager em = context.getEntityManager();
             CareerFieldDAO dao = new CareerFieldDAO(em);
             CareerFieldService service = new CareerFieldService(em, dao);
-            List<String> lines = FileHelper.readAllLines("T:\\FPT\\STUDY\\SUMMER2020\\PRX\\Project\\SmartChoice\\all-fields.txt");
+            List<String> lines = FileHelper.readAllLines("all-fields.txt");
             int i = 0;
             String line;
             em.getTransaction().begin();
@@ -53,7 +53,7 @@ public class Entry {
             EntityManager em = context.getEntityManager();
             LocationDAO dao = new LocationDAO(em);
             LocationService service = new LocationService(em, dao);
-            List<String> lines = FileHelper.readAllLines("T:\\FPT\\STUDY\\SUMMER2020\\PRX\\Project\\SmartChoice\\all-locs.txt");
+            List<String> lines = FileHelper.readAllLines("all-locs.txt");
             int i = 0;
             String line;
             em.getTransaction().begin();

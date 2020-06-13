@@ -9,10 +9,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
@@ -29,6 +30,8 @@ import javax.xml.xpath.XPathExpressionException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import smartchoice.business.services.CompanyService;
+import smartchoice.data.models.Company;
 import smartchoice.helper.HttpHelper;
 import smartchoice.helper.XMLHelper;
 import smartchoice.parser.timviecnhanh.models.schema.JobItem;
@@ -41,17 +44,25 @@ import smartchoice.xmlparser.statemachine.HtmlPreprocessor;
  */
 public class Parser {
 
+    public static String NAME = "TVN";
     protected XmlParserConfig xmlParserConfig;
     protected ParserConfig parserConfig;
     protected XPath xpath;
-    protected List<String> jobLinks;
+    protected Set<String> jobLinks;
     protected Templates jobTemplate;
+    protected EntityManager entityManager;
+    protected CompanyService companyService;
 
-    public Parser(XmlParserConfig xmlParserConfig, ParserConfig parserConfig, Templates jobTemplate) {
+    public Parser(EntityManager entityManager,
+            CompanyService companyService,
+            XmlParserConfig xmlParserConfig,
+            ParserConfig parserConfig, Templates jobTemplate) {
+        this.entityManager = entityManager;
+        this.companyService = companyService;
         this.xmlParserConfig = xmlParserConfig;
         this.parserConfig = parserConfig;
         this.xpath = XMLHelper.getXPath();
-        this.jobLinks = new ArrayList<>();
+        this.jobLinks = new HashSet<>();
         this.jobTemplate = jobTemplate;
     }
 
@@ -78,15 +89,7 @@ public class Parser {
         //parse DOM and use XPath to get links
         Document doc = XMLHelper.parseDOMFromString(content);
         getLinks(jobLinks, doc, startPage);
-        //parse another pages
-        NodeList pageLinkNodes = (NodeList) xpath.evaluate(startPage.getPagingLinksXPath(), doc, XPathConstants.NODESET);
-        for (int i = 0; i < pageLinkNodes.getLength(); i++) {
-            String pageLink = pageLinkNodes.item(i).getNodeValue();
-            pageLink = resolveFullPagingUrl(startPage, pageLink);
-            content = preprocess(pageLink);
-            doc = XMLHelper.parseDOMFromString(content);
-            getLinks(jobLinks, doc, startPage);
-        }
+        //can not parsed because paging loaded by javascript ...
     }
 
     protected void filterLinks() {
@@ -112,6 +115,8 @@ public class Parser {
                 e.printStackTrace();
             } catch (JAXBException ex) {
                 Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
@@ -121,8 +126,25 @@ public class Parser {
         processCompany(jobItem.getCompany());
     }
 
-    protected void processCompany(JobItem.Company company) {
-        //TODO
+    protected boolean processCompany(JobItem.Company company) {
+        String code = company.getCode();
+        code = Parser.NAME + "_" + code.substring(code.lastIndexOf('-') + 1, code.lastIndexOf('.'));
+        boolean existed = companyService.codeExists(code);
+        if (!existed) {
+            Company entity = new Company();
+            entity.setCode(code);
+            entity.setAddress(company.getAddress());
+            entity.setDetailUrl(company.getDetailUrl());
+            entity.setImage(company.getImage());
+            entity.setName(company.getCode());
+            if (!companyService.validateForCreate(entity)) {
+                return false;
+            }
+            entityManager.getTransaction().begin();
+            companyService.createCompany(entity);
+            entityManager.getTransaction().commit();
+        }
+        return true;
     }
 
     protected String transform(String pageUrl, String pageContent) throws TransformerConfigurationException, FileNotFoundException, TransformerException {
@@ -149,7 +171,7 @@ public class Parser {
         return content;
     }
 
-    protected void getLinks(List<String> jobLinks, Document doc, ParserConfig.Pages.Page page) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
+    protected void getLinks(Set<String> jobLinks, Document doc, ParserConfig.Pages.Page page) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
         NodeList linkNodes = (NodeList) xpath.evaluate(page.getJobLinksXPath(), doc, XPathConstants.NODESET);
         for (int i = 0; i < linkNodes.getLength(); i++) {
             String link = linkNodes.item(i).getNodeValue();

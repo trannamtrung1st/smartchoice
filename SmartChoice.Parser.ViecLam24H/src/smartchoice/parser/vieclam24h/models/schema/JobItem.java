@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
+ *                   &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="detailUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="image" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -636,6 +637,7 @@ public class JobItem {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
+     *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="detailUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="image" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -650,6 +652,7 @@ public class JobItem {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
+        "code",
         "detailUrl",
         "image",
         "name",
@@ -658,6 +661,8 @@ public class JobItem {
     public static class Company {
 
         @XmlElement(required = true)
+        protected String code;
+        @XmlElement(required = true)
         protected String detailUrl;
         @XmlElement(required = true)
         protected String image;
@@ -665,6 +670,30 @@ public class JobItem {
         protected String name;
         @XmlElement(required = true)
         protected String address;
+
+        /**
+         * Gets the value of the code property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getCode() {
+            return code;
+        }
+
+        /**
+         * Sets the value of the code property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setCode(String value) {
+            this.code = value;
+        }
 
         /**
          * Gets the value of the detailUrl property.

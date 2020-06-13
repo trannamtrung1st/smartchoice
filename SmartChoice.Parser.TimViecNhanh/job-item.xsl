@@ -34,6 +34,9 @@
       <xsl:value-of select="//*[@id='left-content']/article/div/div/time"/>
     </updatedDate>
     <company>
+      <code>
+        <xsl:value-of select="div[33]/a/@href"/>
+      </code>
       <detailUrl>
         <xsl:value-of select="div[33]/a/@href"/>
       </detailUrl>

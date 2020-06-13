@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}unsignedInt"/>
+ *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="jobName" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="updatedDate" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="company">
@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;complexContent>
  *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *                 &lt;sequence>
+ *                   &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="detailUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *                   &lt;element name="image" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -106,8 +107,8 @@ public class JobItem {
 
     @XmlElement(required = true)
     protected String url;
-    @XmlSchemaType(name = "unsignedInt")
-    protected long code;
+    @XmlElement(required = true)
+    protected String code;
     @XmlElement(required = true)
     protected String jobName;
     @XmlElement(required = true)
@@ -168,16 +169,24 @@ public class JobItem {
     /**
      * Gets the value of the code property.
      * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
      */
-    public long getCode() {
+    public String getCode() {
         return code;
     }
 
     /**
      * Sets the value of the code property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
      */
-    public void setCode(long value) {
+    public void setCode(String value) {
         this.code = value;
     }
 
@@ -628,6 +637,7 @@ public class JobItem {
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;sequence>
+     *         &lt;element name="code" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="detailUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
      *         &lt;element name="image" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -642,6 +652,7 @@ public class JobItem {
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "", propOrder = {
+        "code",
         "detailUrl",
         "name",
         "image",
@@ -650,6 +661,8 @@ public class JobItem {
     public static class Company {
 
         @XmlElement(required = true)
+        protected String code;
+        @XmlElement(required = true)
         protected String detailUrl;
         @XmlElement(required = true)
         protected String name;
@@ -657,6 +670,30 @@ public class JobItem {
         protected String image;
         @XmlElement(required = true)
         protected String address;
+
+        /**
+         * Gets the value of the code property.
+         * 
+         * @return
+         *     possible object is
+         *     {@link String }
+         *     
+         */
+        public String getCode() {
+            return code;
+        }
+
+        /**
+         * Sets the value of the code property.
+         * 
+         * @param value
+         *     allowed object is
+         *     {@link String }
+         *     
+         */
+        public void setCode(String value) {
+            this.code = value;
+        }
 
         /**
          * Gets the value of the detailUrl property.

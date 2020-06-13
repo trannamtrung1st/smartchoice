@@ -39,7 +39,10 @@
   
   <!--Company info-->
   <xsl:template match="//*[@id='sidebar_ntd_info']">
-    <detailUrl>
+    <code>
+      <xsl:value-of select="a/@href"/>
+    </code>
+	<detailUrl>
       <xsl:value-of select="a/@href"/>
     </detailUrl>
     <image>
