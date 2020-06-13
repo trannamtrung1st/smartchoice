@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package smartchoice.parser.vieclam24h;
+package smartchoice.parser.timviecnhanh;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -29,10 +29,9 @@ import javax.xml.xpath.XPathExpressionException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import smartchoice.helper.FileHelper;
 import smartchoice.helper.HttpHelper;
 import smartchoice.helper.XMLHelper;
-import smartchoice.parser.vieclam24h.models.schema.JobItem;
+import smartchoice.parser.timviecnhanh.models.schema.JobItem;
 import smartchoice.xmlparser.XmlParserConfig;
 import smartchoice.xmlparser.statemachine.HtmlPreprocessor;
 
@@ -83,7 +82,7 @@ public class Parser {
         NodeList pageLinkNodes = (NodeList) xpath.evaluate(startPage.getPagingLinksXPath(), doc, XPathConstants.NODESET);
         for (int i = 0; i < pageLinkNodes.getLength(); i++) {
             String pageLink = pageLinkNodes.item(i).getNodeValue();
-            pageLink = resolveFullUrl(startPage, pageLink);
+            pageLink = resolveFullPagingUrl(startPage, pageLink);
             content = preprocess(pageLink);
             doc = XMLHelper.parseDOMFromString(content);
             getLinks(jobLinks, doc, startPage);
@@ -101,9 +100,8 @@ public class Parser {
                 System.out.println("Start parsing page: " + jobLink);
                 String pageContent = preprocess(jobLink);
                 String modelXml = transform(jobLink, pageContent);
-                FileHelper.writeToFile(modelXml, "temp.xml");
-                JobItem jobItem = XMLHelper.unmarshallDocXml(modelXml, smartchoice.parser.vieclam24h.models.schema.ObjectFactory.class);
-                System.out.println(jobItem.getUrl());
+                JobItem jobItem = XMLHelper.unmarshallDocXml(modelXml, smartchoice.parser.timviecnhanh.models.schema.ObjectFactory.class);
+                System.out.println(jobItem.getJobName());
                 System.out.println("Finish parsing page: " + jobLink);
                 System.out.println("------------------------");
             } catch (IOException | TransformerException e) {
@@ -148,6 +146,10 @@ public class Parser {
     protected String resolveFullUrl(ParserConfig.Pages.Page page, String relPath) {
         return relPath.startsWith("http") ? relPath
                 : ((parserConfig.getBaseUrl() + (relPath.startsWith("/") ? relPath : "/" + relPath)));
+    }
+
+    protected String resolveFullPagingUrl(ParserConfig.Pages.Page page, String relPath) {
+        return page.getUrl() + "?page=" + relPath;
     }
 
 }

@@ -1,5 +1,5 @@
 
-package smartchoice.parser.vieclam24h.models.xmlschema;
+package smartchoice.parser.timviecnhanh.models.schema;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 /**
  * This object contains factory methods for each 
  * Java content interface and Java element interface 
- * generated in the smartchoice.parser.vieclam24h.models.xmlschema package. 
+ * generated in the smartchoice.parser.timviecnhanh.models.schema package. 
  * <p>An ObjectFactory allows you to programatically 
  * construct new instances of the Java representation 
  * for XML content. The Java representation of XML 
@@ -23,7 +23,7 @@ public class ObjectFactory {
 
 
     /**
-     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: smartchoice.parser.vieclam24h.models.xmlschema
+     * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: smartchoice.parser.timviecnhanh.models.schema
      * 
      */
     public ObjectFactory() {

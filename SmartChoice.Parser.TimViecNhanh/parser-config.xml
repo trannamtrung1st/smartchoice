@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parserConfig xmlns="http://smartchoice.com/xml/parser-config">
+  <baseUrl>https://www.timviecnhanh.com/</baseUrl>
+  <pages>
+    <page>
+      <url>https://www.timviecnhanh.com/vieclam</url>
+      <jobLinksXPath>//*[@id='job-hot-content']/table/tbody/tr/td/a/@href</jobLinksXPath>
+      <pagingLinksXPath>//*[@id="job-hot-content"]/table/tfoot/tr/td/div/a[@class='item job-hot-pagination']/@rel</pagingLinksXPath>
+    </page>
+    <page>
+      <url>https://www.timviecnhanh.com/viec-lam/tuyen-gap</url>
+      <jobLinksXPath>//*[@id='job-urgent-content']/table/tbody/tr/td/a/@href</jobLinksXPath>
+      <pagingLinksXPath>//*[@id="job-urgent-content"]/table/tfoot/tr/td/div/a[@class='item job-urgent-pagination']/@rel</pagingLinksXPath>
+    </page>
+    <page>
+      <url>https://www.timviecnhanh.com/vieclam24h</url>
+      <jobLinksXPath>//*[@id='job-week-content']/table/tbody/tr/td/a/@href</jobLinksXPath>
+      <pagingLinksXPath>//*[@id="job-week-content"]/table/tfoot/tr/td/div/a[@class='item job-week-pagination']/@rel</pagingLinksXPath>
+    </page>
+  </pages>
+</parserConfig>

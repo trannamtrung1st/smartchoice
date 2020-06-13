@@ -1,5 +1,5 @@
 
-package smartchoice.parser.vieclam24h.models.xmlschema;
+package smartchoice.parser.timviecnhanh.models.schema;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}anyType"/>
+ *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="jobName" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="company">
  *           &lt;complexType>
@@ -91,7 +91,7 @@ import javax.xml.bind.annotation.XmlType;
 public class JobItem {
 
     @XmlElement(required = true)
-    protected Object url;
+    protected String url;
     @XmlElement(required = true)
     protected String jobName;
     @XmlElement(required = true)
@@ -130,10 +130,10 @@ public class JobItem {
      * 
      * @return
      *     possible object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
-    public Object getUrl() {
+    public String getUrl() {
         return url;
     }
 
@@ -142,10 +142,10 @@ public class JobItem {
      * 
      * @param value
      *     allowed object is
-     *     {@link Object }
+     *     {@link String }
      *     
      */
-    public void setUrl(Object value) {
+    public void setUrl(String value) {
         this.url = value;
     }
 
