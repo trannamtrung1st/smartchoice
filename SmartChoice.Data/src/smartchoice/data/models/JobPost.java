@@ -6,16 +6,14 @@
 package smartchoice.data.models;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -23,7 +21,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "JobPost.findAll", query = "SELECT j FROM JobPost j")
+    , @NamedQuery(name = "JobPost.findById", query = "SELECT j FROM JobPost j WHERE j.id = :id")
     , @NamedQuery(name = "JobPost.findByCode", query = "SELECT j FROM JobPost j WHERE j.code = :code")
     , @NamedQuery(name = "JobPost.findByName", query = "SELECT j FROM JobPost j WHERE j.name = :name")
     , @NamedQuery(name = "JobPost.findByUrl", query = "SELECT j FROM JobPost j WHERE j.url = :url")
@@ -54,6 +52,10 @@ public class JobPost implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(nullable = false)
+    private Integer id;
     @Basic(optional = false)
     @Column(nullable = false, length = 100)
     private String code;
@@ -87,27 +89,29 @@ public class JobPost implements Serializable {
     private String contactPerson;
     @Column(length = 500)
     private String contactAddress;
-    @JoinTable(name = "JobLocation", joinColumns = {
-        @JoinColumn(name = "jobPostCode", referencedColumnName = "code", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "locationName", referencedColumnName = "name", nullable = false)})
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Collection<Location> locationCollection;
-    @ManyToMany(mappedBy = "jobPostCollection", fetch = FetchType.LAZY)
-    private Collection<CareerField> careerFieldCollection;
     @JoinColumn(name = "companyId", referencedColumnName = "id", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Company companyId;
 
     public JobPost() {
     }
 
-    public JobPost(String code) {
-        this.code = code;
+    public JobPost(Integer id) {
+        this.id = id;
     }
 
-    public JobPost(String code, String name) {
+    public JobPost(Integer id, String code, String name) {
+        this.id = id;
         this.code = code;
         this.name = name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getCode() {
@@ -238,24 +242,6 @@ public class JobPost implements Serializable {
         this.contactAddress = contactAddress;
     }
 
-    @XmlTransient
-    public Collection<Location> getLocationCollection() {
-        return locationCollection;
-    }
-
-    public void setLocationCollection(Collection<Location> locationCollection) {
-        this.locationCollection = locationCollection;
-    }
-
-    @XmlTransient
-    public Collection<CareerField> getCareerFieldCollection() {
-        return careerFieldCollection;
-    }
-
-    public void setCareerFieldCollection(Collection<CareerField> careerFieldCollection) {
-        this.careerFieldCollection = careerFieldCollection;
-    }
-
     public Company getCompanyId() {
         return companyId;
     }
@@ -267,7 +253,7 @@ public class JobPost implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (code != null ? code.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -278,7 +264,7 @@ public class JobPost implements Serializable {
             return false;
         }
         JobPost other = (JobPost) object;
-        if ((this.code == null && other.code != null) || (this.code != null && !this.code.equals(other.code))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -286,7 +272,7 @@ public class JobPost implements Serializable {
 
     @Override
     public String toString() {
-        return "smartchoice.data.models.JobPost[ code=" + code + " ]";
+        return "smartchoice.data.models.JobPost[ id=" + id + " ]";
     }
     
 }

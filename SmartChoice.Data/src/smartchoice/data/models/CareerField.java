@@ -8,17 +8,15 @@ package smartchoice.data.models;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -45,11 +43,8 @@ public class CareerField implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false, length = 255)
     private String name;
-    @JoinTable(name = "JobField", joinColumns = {
-        @JoinColumn(name = "careerFieldId", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
-        @JoinColumn(name = "jobPostCode", referencedColumnName = "code", nullable = false)})
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Collection<JobPost> jobPostCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "careerField")
+    private Collection<JobField> jobFieldCollection;
 
     public CareerField() {
     }
@@ -80,12 +75,12 @@ public class CareerField implements Serializable {
     }
 
     @XmlTransient
-    public Collection<JobPost> getJobPostCollection() {
-        return jobPostCollection;
+    public Collection<JobField> getJobFieldCollection() {
+        return jobFieldCollection;
     }
 
-    public void setJobPostCollection(Collection<JobPost> jobPostCollection) {
-        this.jobPostCollection = jobPostCollection;
+    public void setJobFieldCollection(Collection<JobField> jobFieldCollection) {
+        this.jobFieldCollection = jobFieldCollection;
     }
 
     @Override

@@ -29,3 +29,10 @@ hs_err_pid*
 /SmartChoice.Parser.TimViecNhanh/nbproject/private/
 /SmartChoice.Parser.TimViecNhanh/build/
 /SmartChoice.Data/nbproject/private/
+/SmartChoice.Business/nbproject/private/
+/SmartChoice.Business/build/
+/SmartChoice.Data/build/
+/SmartChoice.Data/dist/
+/SmartChoice.Business/dist/
+/SmartChoice.Console/dist/
+/SmartChoice.Parser.TimViecNhanh/dist/
