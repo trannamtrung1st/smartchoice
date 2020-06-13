@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Created with Liquid Technologies Online Tools 1.0 (https://www.liquid-technologies.com) -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="jobItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="url" />
+        <xs:element name="jobName" type="xs:string" />
+        <xs:element name="company">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="detailUrl" type="xs:string" />
+              <xs:element name="name" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="code" type="xs:string" />
+        <xs:element name="salaryRange" type="xs:string" />
+        <xs:element name="expRequirement" type="xs:string" />
+        <xs:element name="degreeRequirement" type="xs:string" />
+        <xs:element name="numOfVacancy" type="xs:unsignedByte" />
+        <xs:element name="careerFields">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="item" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="workLocation" type="xs:string" />
+        <xs:element name="genderRequirement" type="xs:string" />
+        <xs:element name="description" type="xs:string" />
+        <xs:element name="benefit" type="xs:string" />
+        <xs:element name="otherRequirement" type="xs:string" />
+        <xs:element name="expiredDate" type="xs:string" />
+        <xs:element name="contactPerson" type="xs:string" />
+        <xs:element name="contactAddress" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

@@ -14,6 +14,8 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
@@ -22,7 +24,6 @@ import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPath;
@@ -31,8 +32,10 @@ import javax.xml.xpath.XPathExpressionException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import smartchoice.helper.FileHelper;
 import smartchoice.helper.HttpHelper;
 import smartchoice.helper.XMLHelper;
+import smartchoice.parser.vieclam24h.models.xmlschema.JobItem;
 import smartchoice.xmlparser.XmlParserConfig;
 import smartchoice.xmlparser.statemachine.HtmlPreprocessor;
 
@@ -59,18 +62,21 @@ public class Parser {
     public void start() {
         for (ParserConfig.Pages.Page page : parserConfig.getPages().getPage()) {
             try {
-                System.out.println("Start parsing page: " + page.getUrl());
-                parsePage(page);
-                System.out.println("Finish parsing page: " + page.getUrl());
+                System.out.println("Start get links page: " + page.getUrl());
+                parsePageToGetLinks(page);
+                System.out.println("Finish get links page: " + page.getUrl());
                 System.out.println("------------------------");
             } catch (IOException | JAXBException | ParserConfigurationException | SAXException | XPathExpressionException e) {
-                System.out.println("Error parse page: " + page.getUrl());
+                System.out.println("Error get links page: " + page.getUrl());
                 e.printStackTrace();
             }
         }
+        //get uncrawled links only
+        filterLinks();
+        parseJobLinks();
     }
 
-    protected void parsePage(ParserConfig.Pages.Page startPage) throws IOException, JAXBException, ParserConfigurationException, SAXException, XPathExpressionException {
+    protected void parsePageToGetLinks(ParserConfig.Pages.Page startPage) throws IOException, JAXBException, ParserConfigurationException, SAXException, XPathExpressionException {
         String content = preprocess(startPage.getUrl());
 
         //parse DOM and use XPath to get links
@@ -85,26 +91,30 @@ public class Parser {
             doc = XMLHelper.parseDOMFromString(content);
             getLinks(jobLinks, doc, startPage);
         }
-        //get uncrawled links only
-        filterLinks();
-        System.out.println(jobLinks.size());
+    }
+
+    protected void filterLinks() {
+        //TODO
+    }
+
+    protected void parseJobLinks() {
+        System.out.println("Size: " + jobLinks.size());
         for (String jobLink : jobLinks) {
             try {
                 System.out.println("Start parsing page: " + jobLink);
                 String pageContent = preprocess(jobLink);
                 String modelXml = transform(pageContent);
-                System.out.println(modelXml);
+                JobItem jobItem = XMLHelper.unmarshallDocXml(modelXml, smartchoice.parser.vieclam24h.models.xmlschema.ObjectFactory.class);
+                System.out.println(jobItem.getJobName());
                 System.out.println("Finish parsing page: " + jobLink);
                 System.out.println("------------------------");
             } catch (IOException | TransformerException e) {
                 System.out.println("Parsing error: " + jobLink);
                 e.printStackTrace();
+            } catch (JAXBException ex) {
+                Logger.getLogger(Parser.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }
-
-    protected void filterLinks() {
-        //TODO
     }
 
     protected String transform(String pageContent) throws TransformerConfigurationException, FileNotFoundException, TransformerException {

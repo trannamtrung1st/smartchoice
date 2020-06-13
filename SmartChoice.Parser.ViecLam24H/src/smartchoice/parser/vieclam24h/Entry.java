@@ -19,8 +19,8 @@ import smartchoice.xmlparser.XmlParserConfig;
 public class Entry {
 
     public static void main(String[] args) throws JAXBException, TransformerConfigurationException, FileNotFoundException {
-        ParserConfig parserConfig = XMLHelper.unmarshallDoc("parser-config.xml", ObjectFactory.class);
-        XmlParserConfig xmlParserConfig = XMLHelper.unmarshallDoc("xml-parser-config.xml", smartchoice.xmlparser.ObjectFactory.class);
+        ParserConfig parserConfig = XMLHelper.unmarshallDocFile("parser-config.xml", ObjectFactory.class);
+        XmlParserConfig xmlParserConfig = XMLHelper.unmarshallDocFile("xml-parser-config.xml", smartchoice.xmlparser.ObjectFactory.class);
         Templates jobTemplate = XMLHelper.getTemplates("job-item.xsl");
         Parser parser = new Parser(xmlParserConfig, parserConfig, jobTemplate);
         parser.start();

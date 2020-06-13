@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -68,7 +69,7 @@ public class XMLHelper {
         return doc;
     }
 
-    public static <T> T unmarshallElement(String file, Class objectFactoryClass) throws JAXBException {
+    public static <T> T unmarshallElementFile(String file, Class objectFactoryClass) throws JAXBException {
         JAXBContext jc = JAXBContext.newInstance(objectFactoryClass);
         Unmarshaller u = jc.createUnmarshaller();
         File f = new File(file);
@@ -76,11 +77,18 @@ public class XMLHelper {
         return obj;
     }
 
-    public static <T> T unmarshallDoc(String file, Class objectFactoryClass) throws JAXBException {
+    public static <T> T unmarshallDocFile(String file, Class objectFactoryClass) throws JAXBException {
         JAXBContext jc = JAXBContext.newInstance(objectFactoryClass);
         Unmarshaller u = jc.createUnmarshaller();
         File f = new File(file);
         T obj = (T) u.unmarshal(f);
+        return obj;
+    }
+    
+    public static <T> T unmarshallDocXml(String xml, Class objectFactoryClass) throws JAXBException {
+        JAXBContext jc = JAXBContext.newInstance(objectFactoryClass);
+        Unmarshaller u = jc.createUnmarshaller();
+        T obj = (T) u.unmarshal(new InputSource(new StringReader(xml)));
         return obj;
     }
 
