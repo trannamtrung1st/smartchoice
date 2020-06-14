@@ -9,8 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.sql.Date;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -131,15 +131,59 @@ public class Parser {
     }
 
     protected void processJobItem(JobItem jobItem) throws ParseException {
-        //TODO
+        if (jobItem.getJobName() == null || jobItem.getJobName().isEmpty()) {
+            return;
+        }
         Company company = getOrCreateCompany(jobItem.getCompany());
         String code = Parser.NAME + "_" + jobItem.getCode();
         boolean existed = jobPostService.jobPostCodeExists(code);
         if (!existed) {
-            //TODO
+            //TODO: move String to config
             JobPost entity = new JobPost();
+            entity.setBenefit(jobItem.getBenefit());
+            entity.setCode(code);
+            entity.setCompanyId(company);
+            entity.setContactAddress(jobItem.getContactAddress());
+            entity.setContactPerson(jobItem.getContactPerson());
+            entity.setDegreeRequirement(jobItem.getDegreeRequirement());
+            entity.setDescription(jobItem.getDescription());
+            try {
+                String expReq = jobItem.getExpRequirement();
+                Double exp = Double.parseDouble(expReq.substring(0, expReq.indexOf(" ")));
+                entity.setExperienceRequirement(exp);
+            } catch (Exception e) {
+                entity.setExperienceRequirement(0.0);
+            }
+            try {
+                Date expDate = DateHelper.convertToJavaDate("dd-MM-yyyy", jobItem.getExpiredDate());
+                entity.setExpiredDate(expDate);
+            } catch (Exception e) {
+            }
+            String genReq = jobItem.getGenderRequirement();
+            if (genReq.equalsIgnoreCase("nam")) {
+                entity.setGenderRequirement(true);
+            } else if (genReq.equalsIgnoreCase("nữ")) {
+                entity.setGenderRequirement(false);
+            }
+            entity.setName(jobItem.getJobName());
+            entity.setNumOfVacancy((int) jobItem.getNumOfVacancy());
+            entity.setOtherRequirement(jobItem.getOtherRequirement());
+            try {
+                Date upDate = DateHelper.convertToJavaDate("dd-MM-yyyy", jobItem.getUpdatedDate());
+                entity.setUpdatedDate(upDate);
+            } catch (Exception e) {
+            }
+            entity.setUrl(jobItem.getUrl());
+            try {
+                String[] salary = jobItem.getSalaryRange().split("-");
+                Double from = Double.parseDouble(salary[0].trim()) * 1000000;
+                Double to = Double.parseDouble(salary[1].trim().substring(0, salary[1].indexOf(" "))) * 1000000;
+                entity.setSalaryFrom(from);
+                entity.setSalaryTo(to);
+            } catch (Exception e) {
+            }
         } else {
-            Date updatedDate = DateHelper.convertToSqlDate("dd/MM/yyyy", jobItem.getUpdatedDate());
+            Date updatedDate = DateHelper.convertToJavaDate("dd/MM/yyyy", jobItem.getUpdatedDate());
             boolean needUpdated = jobPostService.needUpdatedJobPost(code, updatedDate);
             if (needUpdated) {
 

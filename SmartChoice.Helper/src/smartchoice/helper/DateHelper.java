@@ -17,12 +17,12 @@ import java.util.Date;
 public class DateHelper {
 
     public static java.sql.Date convertToSqlDate(String format, String dateStr) throws ParseException {
-        Date jDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
+        Date jDate = new SimpleDateFormat(format).parse(dateStr);
         return new java.sql.Date(jDate.getTime());
     }
 
     public static Date convertToJavaDate(String format, String dateStr) throws ParseException {
-        Date jDate = new SimpleDateFormat("dd/MM/yyyy").parse(dateStr);
+        Date jDate = new SimpleDateFormat(format).parse(dateStr);
         return jDate;
     }
 

@@ -9,8 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.sql.Date;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -147,7 +147,7 @@ public class Parser {
             //TODO
             JobPost entity = new JobPost();
         } else {
-            Date updatedDate = DateHelper.convertToSqlDate("dd/MM/yyyy", jobItem.getUpdatedDate());
+            Date updatedDate = DateHelper.convertToJavaDate("dd/MM/yyyy", jobItem.getUpdatedDate());
             boolean needUpdated = jobPostService.needUpdatedJobPost(code, updatedDate);
             if (needUpdated) {
 
