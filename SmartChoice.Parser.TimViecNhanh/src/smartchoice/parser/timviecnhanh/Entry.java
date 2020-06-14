@@ -11,8 +11,10 @@ import javax.xml.bind.JAXBException;
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 import smartchoice.business.services.CompanyService;
+import smartchoice.business.services.JobPostService;
 import smartchoice.data.EntityContext;
 import smartchoice.data.daos.CompanyDAO;
+import smartchoice.data.daos.JobPostDAO;
 import smartchoice.helper.XMLHelper;
 import smartchoice.xmlparser.XmlParserConfig;
 
@@ -29,7 +31,8 @@ public class Entry {
         EntityContext context = EntityContext.newInstance();
         EntityManager em = context.getEntityManager();
         CompanyService companyService = new CompanyService(em, new CompanyDAO(em));
-        Parser parser = new Parser(em, companyService, xmlParserConfig, parserConfig, jobTemplate);
+        JobPostService jobPostService = new JobPostService(em, new JobPostDAO(em));
+        Parser parser = new Parser(em, companyService, jobPostService, xmlParserConfig, parserConfig, jobTemplate);
         parser.start();
     }
 }

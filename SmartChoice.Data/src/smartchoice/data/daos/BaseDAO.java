@@ -6,6 +6,7 @@
 package smartchoice.data.daos;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
@@ -40,7 +41,7 @@ public abstract class BaseDAO<T> {
         return eManager.find(eClass, id);
     }
 
-    public <Return> TypedQuery<Return> query(CriteriaQuery<Return> crit) {
-        return eManager.createQuery(crit);
+    public Query nativeQuery(String sql) {
+        return eManager.createNativeQuery(sql);
     }
 }

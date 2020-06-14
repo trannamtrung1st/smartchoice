@@ -5,11 +5,11 @@
  */
 package smartchoice.business.services;
 
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import org.eclipse.persistence.internal.jpa.querydef.CriteriaBuilderImpl;
+import javax.persistence.Query;
 import smartchoice.data.daos.CompanyDAO;
 import smartchoice.data.models.Company;
 
@@ -31,22 +31,26 @@ public class CompanyService {
         return companyDAO.create(entity);
     }
 
-    public boolean nameExists(String name) {
-        CriteriaBuilder builder = new CriteriaBuilderImpl(entityManager.getMetamodel());
-        CriteriaQuery<Object> query = builder.createQuery();
-        Root<Company> root = query.from(Company.class);
-        query = query.select(root)
-                .where(builder.equal(root.get("name"), builder.parameter(String.class, "name"))).select(root.get("id"));
-        return companyDAO.query(query).setParameter("name", name.toLowerCase()).getResultList().size() > 0;
+    public boolean companyNameExists(String name) {
+        String sql = "SELECT id FROM Company WHERE name=?name";
+        Query query = companyDAO.nativeQuery(sql).setParameter("name", name);
+        List<Integer> list = query.getResultList();
+        return list.size() > 0;
     }
 
-    public boolean codeExists(String code) {
-        CriteriaBuilder builder = new CriteriaBuilderImpl(entityManager.getMetamodel());
-        CriteriaQuery<Object> query = builder.createQuery();
-        Root<Company> root = query.from(Company.class);
-        query = query.select(root)
-                .where(builder.equal(root.get("code"), builder.parameter(String.class, "code"))).select(root.get("id"));
-        return companyDAO.query(query).setParameter("code", code.toLowerCase()).getResultList().size() > 0;
+    public boolean companyCodeExists(String code) {
+        String sql = "SELECT id FROM Company WHERE code=?code";
+        Query query = companyDAO.nativeQuery(sql).setParameter("code", code);
+        List<Integer> list = query.getResultList();
+        return list.size() > 0;
+    }
+
+    public <In, T> List<T> queryCompanyByCode(String code, Function<In, T> mapping, String... fields) {
+        String fieldJoin = String.join(",", fields);
+        String sql = "SELECT " + fieldJoin + " FROM Company WHERE code=?code";
+        Query query = companyDAO.nativeQuery(sql).setParameter("code", code);
+        List<In> list = query.getResultList();
+        return list.stream().map(mapping).collect(Collectors.toList());
     }
 
     public boolean validateForCreate(Company company) {

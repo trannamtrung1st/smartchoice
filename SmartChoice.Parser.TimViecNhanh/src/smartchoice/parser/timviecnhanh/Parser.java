@@ -9,7 +9,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.sql.Date;
+import java.text.ParseException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +34,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import smartchoice.business.services.CompanyService;
+import smartchoice.business.services.JobPostService;
 import smartchoice.data.models.Company;
+import smartchoice.data.models.JobPost;
+import smartchoice.helper.DateHelper;
 import smartchoice.helper.HttpHelper;
 import smartchoice.helper.XMLHelper;
 import smartchoice.parser.timviecnhanh.models.schema.JobItem;
@@ -52,13 +58,16 @@ public class Parser {
     protected Templates jobTemplate;
     protected EntityManager entityManager;
     protected CompanyService companyService;
+    protected JobPostService jobPostService;
 
     public Parser(EntityManager entityManager,
             CompanyService companyService,
+            JobPostService jobPostService,
             XmlParserConfig xmlParserConfig,
             ParserConfig parserConfig, Templates jobTemplate) {
         this.entityManager = entityManager;
         this.companyService = companyService;
+        this.jobPostService = jobPostService;
         this.xmlParserConfig = xmlParserConfig;
         this.parserConfig = parserConfig;
         this.xpath = XMLHelper.getXPath();
@@ -121,16 +130,30 @@ public class Parser {
         }
     }
 
-    protected void processJobItem(JobItem jobItem) {
+    protected void processJobItem(JobItem jobItem) throws ParseException {
         //TODO
-        processCompany(jobItem.getCompany());
+        Company company = getOrCreateCompany(jobItem.getCompany());
+        String code = Parser.NAME + "_" + jobItem.getCode();
+        boolean existed = jobPostService.jobPostCodeExists(code);
+        if (!existed) {
+            //TODO
+            JobPost entity = new JobPost();
+        } else {
+            Date updatedDate = DateHelper.convertToSqlDate("dd/MM/yyyy", jobItem.getUpdatedDate());
+            boolean needUpdated = jobPostService.needUpdatedJobPost(code, updatedDate);
+            if (needUpdated) {
+
+            }
+        }
     }
 
-    protected boolean processCompany(JobItem.Company company) {
-        String code = company.getCode();
-        code = Parser.NAME + "_" + code.substring(code.lastIndexOf('-') + 1, code.lastIndexOf('.'));
-        boolean existed = companyService.codeExists(code);
-        if (!existed) {
+    protected Company getOrCreateCompany(JobItem.Company company) {
+        String url = company.getDetailUrl();
+        String code = Parser.NAME + "_" + url.substring(url.lastIndexOf('-') + 1, url.lastIndexOf('.'));
+        List<Company> list = companyService.queryCompanyByCode(code, (Integer id) -> {
+            return new Company(id);
+        }, "id");
+        if (list.isEmpty()) {
             Company entity = new Company();
             entity.setCode(code);
             entity.setAddress(company.getAddress());
@@ -138,13 +161,14 @@ public class Parser {
             entity.setImage(company.getImage());
             entity.setName(company.getCode());
             if (!companyService.validateForCreate(entity)) {
-                return false;
+                return null;
             }
             entityManager.getTransaction().begin();
             companyService.createCompany(entity);
             entityManager.getTransaction().commit();
+            return entity;
         }
-        return true;
+        return list.get(0);
     }
 
     protected String transform(String pageUrl, String pageContent) throws TransformerConfigurationException, FileNotFoundException, TransformerException {
