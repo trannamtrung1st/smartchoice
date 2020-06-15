@@ -25,7 +25,7 @@ public class HttpHelper {
     public static String getPageContent(String url) throws IOException {
         StringBuilder sb = new StringBuilder("");
         try (InputStream is = getInputStream(url);
-                InputStreamReader isReader = new InputStreamReader(is);
+                InputStreamReader isReader = new InputStreamReader(is, "UTF-8");
                 BufferedReader bReader = new BufferedReader(isReader)) {
             String line;
             while ((line = bReader.readLine()) != null) {

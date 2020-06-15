@@ -212,6 +212,9 @@ public class Parser {
                 String itemTrim = item.trim();
                 String locName = locationMapping.getOrDefault(itemTrim, itemTrim);
                 Location loc = locationService.findLocationByName(locName);
+                if (loc == null) {
+                    throw new Exception("Can not find location: " + locName);
+                }
                 Collection<Location> locCol = entity.getLocationCollection();
                 if (locCol == null || !locCol.stream().anyMatch(o -> o.getName().equals(locName))) {
                     jobPostService.addJobPostLocation(entity, loc);
@@ -221,6 +224,9 @@ public class Parser {
                 String itemTrim = item.trim();
                 String fieldName = careerMapping.getOrDefault(itemTrim, itemTrim);
                 CareerField field = careerFieldService.findCareerFieldByName(fieldName).get(0);
+                if (field == null) {
+                    throw new Exception("Can not find career field: " + fieldName);
+                }
                 Collection<CareerField> fieldCol = entity.getCareerFieldCollection();
                 if (fieldCol == null || !fieldCol.stream().anyMatch(o -> o.getId().equals(field.getId()))) {
                     jobPostService.addJobPostCareerField(entity, field);
