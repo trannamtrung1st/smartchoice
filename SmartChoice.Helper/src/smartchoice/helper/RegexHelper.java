@@ -14,6 +14,11 @@ import java.util.regex.Pattern;
  */
 public class RegexHelper {
 
+    public static Matcher matcherDotAll(String str, String regex) {
+        Matcher matcher = Pattern.compile(regex, Pattern.DOTALL).matcher(str);
+        return matcher;
+    }
+
     public static boolean matchDotAll(String str, String regex) {
         return Pattern.compile(regex, Pattern.DOTALL).matcher(str).matches();
     }

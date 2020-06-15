@@ -56,7 +56,7 @@
       <xsl:value-of select="//i[contains(@class,'icon-money')]/following-sibling::span/span[@class='job_value']"/>
     </salaryRange>
     <expRequirement>
-      <xsl:value-of select="//i[contains(@class,'icon-exp')]/following-sibling::span/span[@class='job_value']"/>
+      <xsl:value-of select="normalize-space(//i[contains(@class,'icon-exp')]/following-sibling::span/span[@class='job_value'])"/>
     </expRequirement>
     <degreeRequirement>
       <xsl:value-of select="//i[contains(@class,'icon-edu')]/following-sibling::span/span[@class='job_value']"/>

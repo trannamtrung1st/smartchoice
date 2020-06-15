@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -38,7 +39,9 @@ import smartchoice.business.services.JobPostService;
 import smartchoice.data.models.Company;
 import smartchoice.data.models.JobPost;
 import smartchoice.helper.DateHelper;
+import smartchoice.helper.FileHelper;
 import smartchoice.helper.HttpHelper;
+import smartchoice.helper.RegexHelper;
 import smartchoice.helper.XMLHelper;
 import smartchoice.parser.timviecnhanh.models.schema.JobItem;
 import smartchoice.xmlparser.XmlParserConfig;
@@ -50,7 +53,6 @@ import smartchoice.xmlparser.statemachine.HtmlPreprocessor;
  */
 public class Parser {
 
-    public static String NAME = "TVN";
     protected XmlParserConfig xmlParserConfig;
     protected ParserConfig parserConfig;
     protected XPath xpath;
@@ -111,7 +113,7 @@ public class Parser {
             try {
                 System.out.println("Start parsing page: " + jobLink);
                 String pageContent = preprocess(jobLink);
-//                FileHelper.writeToFile(pageContent, "temp.html");
+                FileHelper.writeToFile(pageContent, "temp.html");
                 String modelXml = transform(jobLink, pageContent);
 //                FileHelper.writeToFile(modelXml, "temp.xml");
                 JobItem jobItem = XMLHelper.unmarshallDocXml(modelXml, smartchoice.parser.timviecnhanh.models.schema.ObjectFactory.class);
@@ -130,12 +132,12 @@ public class Parser {
         }
     }
 
-    protected void processJobItem(JobItem jobItem) throws ParseException {
+    protected void processJobItem(JobItem jobItem) throws ParseException, Exception {
         if (jobItem.getJobName() == null || jobItem.getJobName().isEmpty()) {
             return;
         }
         Company company = getOrCreateCompany(jobItem.getCompany());
-        String code = Parser.NAME + "_" + jobItem.getCode();
+        String code = parserConfig.getName() + "_" + jobItem.getCode();
         boolean existed = jobPostService.jobPostCodeExists(code);
         if (!existed) {
             //TODO: move String to config
@@ -147,43 +149,41 @@ public class Parser {
             entity.setContactPerson(jobItem.getContactPerson());
             entity.setDegreeRequirement(jobItem.getDegreeRequirement());
             entity.setDescription(jobItem.getDescription());
+            entity.setExperienceRequirement(jobItem.getExpRequirement());
             try {
-                String expReq = jobItem.getExpRequirement();
-                Double exp = Double.parseDouble(expReq.substring(0, expReq.indexOf(" ")));
-                entity.setExperienceRequirement(exp);
-            } catch (Exception e) {
-                entity.setExperienceRequirement(0.0);
-            }
-            try {
-                Date expDate = DateHelper.convertToJavaDate("dd-MM-yyyy", jobItem.getExpiredDate());
+                Date expDate = DateHelper.convertToJavaDate(parserConfig.getDateFormat(), jobItem.getExpiredDate());
                 entity.setExpiredDate(expDate);
             } catch (Exception e) {
+                entity.setExpiredDate(new Date());
             }
             String genReq = jobItem.getGenderRequirement();
-            if (genReq.equalsIgnoreCase("nam")) {
+            if (genReq.equalsIgnoreCase(parserConfig.getMaleStr())) {
                 entity.setGenderRequirement(true);
-            } else if (genReq.equalsIgnoreCase("nữ")) {
+            } else if (genReq.equalsIgnoreCase(parserConfig.getFemaleStr())) {
                 entity.setGenderRequirement(false);
             }
             entity.setName(jobItem.getJobName());
             entity.setNumOfVacancy((int) jobItem.getNumOfVacancy());
             entity.setOtherRequirement(jobItem.getOtherRequirement());
             try {
-                Date upDate = DateHelper.convertToJavaDate("dd-MM-yyyy", jobItem.getUpdatedDate());
+                Date upDate = DateHelper.convertToJavaDate(parserConfig.getDateFormat(), jobItem.getUpdatedDate());
                 entity.setUpdatedDate(upDate);
             } catch (Exception e) {
+                entity.setUpdatedDate(new Date());
             }
             entity.setUrl(jobItem.getUrl());
             try {
-                String[] salary = jobItem.getSalaryRange().split("-");
-                Double from = Double.parseDouble(salary[0].trim()) * 1000000;
-                Double to = Double.parseDouble(salary[1].trim().substring(0, salary[1].indexOf(" "))) * 1000000;
-                entity.setSalaryFrom(from);
-                entity.setSalaryTo(to);
+                Matcher matcher = RegexHelper.matcherDotAll(jobItem.getSalaryRange(), parserConfig.getSalaryRangeRegex());
+                if (matcher.find()) {
+                    Double from = Double.parseDouble(matcher.group(1)) * parserConfig.getMoneyConversion();
+                    Double to = Double.parseDouble(matcher.group(2)) * parserConfig.getMoneyConversion();
+                    entity.setSalaryFrom(from);
+                    entity.setSalaryTo(to);
+                }
             } catch (Exception e) {
             }
         } else {
-            Date updatedDate = DateHelper.convertToJavaDate("dd/MM/yyyy", jobItem.getUpdatedDate());
+            Date updatedDate = DateHelper.convertToJavaDate(parserConfig.getDateFormat(), jobItem.getUpdatedDate());
             boolean needUpdated = jobPostService.needUpdatedJobPost(code, updatedDate);
             if (needUpdated) {
 
@@ -191,9 +191,15 @@ public class Parser {
         }
     }
 
-    protected Company getOrCreateCompany(JobItem.Company company) {
+    protected Company getOrCreateCompany(JobItem.Company company) throws Exception {
         String url = company.getDetailUrl();
-        String code = Parser.NAME + "_" + url.substring(url.lastIndexOf('-') + 1, url.lastIndexOf('.'));
+        Matcher matcher = RegexHelper.matcherDotAll(url, parserConfig.getCodeFromUrlRegex());
+        String code = null;
+        if (matcher.find()) {
+            code = matcher.group(1);
+        } else {
+            throw new Exception("Code not found");
+        }
         List<Company> list = companyService.queryCompanyByCode(code, (Integer id) -> {
             return new Company(id);
         }, "id");
@@ -203,7 +209,7 @@ public class Parser {
             entity.setAddress(company.getAddress());
             entity.setDetailUrl(company.getDetailUrl());
             entity.setImage(company.getImage());
-            entity.setName(company.getCode());
+            entity.setName(company.getName());
             if (!companyService.validateForCreate(entity)) {
                 return null;
             }
@@ -215,11 +221,17 @@ public class Parser {
         return list.get(0);
     }
 
-    protected String transform(String pageUrl, String pageContent) throws TransformerConfigurationException, FileNotFoundException, TransformerException {
+    protected String transform(String pageUrl, String pageContent) throws TransformerConfigurationException, FileNotFoundException, TransformerException, Exception {
         // Use the template to create a transformer
         Transformer xformer = jobTemplate.newTransformer();
         xformer.setParameter("url", pageUrl);
-        String code = pageUrl.substring(pageUrl.lastIndexOf('-') + 1, pageUrl.lastIndexOf('.'));
+        Matcher matcher = RegexHelper.matcherDotAll(pageUrl, parserConfig.getCodeFromUrlRegex());
+        String code = null;
+        if (matcher.find()) {
+            code = matcher.group(1);
+        } else {
+            throw new Exception("Code not found");
+        }
         xformer.setParameter("code", code);
 
         // Prepare the input and output files
@@ -254,7 +266,7 @@ public class Parser {
     }
 
     protected String resolveFullPagingUrl(ParserConfig.Pages.Page page, String relPath) {
-        return page.getUrl() + "?page=" + relPath;
+        return page.getUrl() + parserConfig.getPagingAppendStr().replace("{p}", relPath);
     }
 
 }

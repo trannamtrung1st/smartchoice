@@ -54,7 +54,7 @@
       <xsl:value-of select="div[6]/div/ul/li[1]/text()"/>
     </salaryRange>
     <expRequirement>
-      <xsl:value-of select="div[6]/div/ul/li[2]/text()"/>
+      <xsl:value-of select="normalize-space(div[6]/div/ul/li[2]/text())"/>
     </expRequirement>
     <degreeRequirement>
       <xsl:value-of select="div[6]/div/ul/li[3]/text()"/>

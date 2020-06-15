@@ -18,4 +18,12 @@
       <pagingLinksXPath>//*[@id="job-week-content"]/table/tfoot/tr/td/div/a[@class='item job-week-pagination']/@rel</pagingLinksXPath>
     </page>
   </pages>
+  <name>TVN</name>
+  <dateFormat>dd-MM-yyyy</dateFormat>
+  <maleStr>nam</maleStr>
+  <femaleStr>nữ</femaleStr>
+  <salaryRangeRegex><![CDATA[([0-9]+?)[ ]*?-[ ]*?([0-9]+?)[ ]]]></salaryRangeRegex>
+  <moneyConversion>1000000</moneyConversion>
+  <codeFromUrlRegex><![CDATA[.*-([a-zA-Z0-9]+?)[.]html.*]]></codeFromUrlRegex>
+  <pagingAppendStr>?page={p}</pagingAppendStr>
 </parserConfig>

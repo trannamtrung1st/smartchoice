@@ -69,8 +69,8 @@ public class JobPost implements Serializable {
     private Double salaryFrom;
     @Column(precision = 53)
     private Double salaryTo;
-    @Column(precision = 53)
-    private Double experienceRequirement;
+    @Column(length = 100)
+    private String experienceRequirement;
     @Column(length = 100)
     private String degreeRequirement;
     private Integer numOfVacancy;
@@ -154,11 +154,11 @@ public class JobPost implements Serializable {
         this.salaryTo = salaryTo;
     }
 
-    public Double getExperienceRequirement() {
+    public String getExperienceRequirement() {
         return experienceRequirement;
     }
 
-    public void setExperienceRequirement(Double experienceRequirement) {
+    public void setExperienceRequirement(String experienceRequirement) {
         this.experienceRequirement = experienceRequirement;
     }
 

@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 import javax.persistence.EntityManager;
 import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
@@ -39,6 +40,7 @@ import smartchoice.data.models.Company;
 import smartchoice.data.models.JobPost;
 import smartchoice.helper.DateHelper;
 import smartchoice.helper.HttpHelper;
+import smartchoice.helper.RegexHelper;
 import smartchoice.helper.XMLHelper;
 import smartchoice.parser.vieclam24h.models.schema.JobItem;
 import smartchoice.xmlparser.XmlParserConfig;
@@ -50,7 +52,6 @@ import smartchoice.xmlparser.statemachine.HtmlPreprocessor;
  */
 public class Parser {
 
-    public static String NAME = "VL24H";
     protected XmlParserConfig xmlParserConfig;
     protected ParserConfig parserConfig;
     protected XPath xpath;
@@ -138,16 +139,58 @@ public class Parser {
         }
     }
 
-    protected void processJobItem(JobItem jobItem) throws ParseException {
-        //TODO
+    protected void processJobItem(JobItem jobItem) throws ParseException, Exception {
+        if (jobItem.getJobName() == null || jobItem.getJobName().isEmpty()) {
+            return;
+        }
         Company company = getOrCreateCompany(jobItem.getCompany());
-        String code = Parser.NAME + "_" + jobItem.getCode();
+        String code = parserConfig.getName() + "_" + jobItem.getCode();
         boolean existed = jobPostService.jobPostCodeExists(code);
         if (!existed) {
-            //TODO
+            //TODO: move String to config
             JobPost entity = new JobPost();
+            entity.setBenefit(jobItem.getBenefit());
+            entity.setCode(code);
+            entity.setCompanyId(company);
+            entity.setContactAddress(jobItem.getContactAddress());
+            entity.setContactPerson(jobItem.getContactPerson());
+            entity.setDegreeRequirement(jobItem.getDegreeRequirement());
+            entity.setDescription(jobItem.getDescription());
+            entity.setExperienceRequirement(jobItem.getExpRequirement());
+            try {
+                Date expDate = DateHelper.convertToJavaDate(parserConfig.getDateFormat(), jobItem.getExpiredDate());
+                entity.setExpiredDate(expDate);
+            } catch (Exception e) {
+                entity.setExpiredDate(new Date());
+            }
+            String genReq = jobItem.getGenderRequirement();
+            if (genReq.equalsIgnoreCase(parserConfig.getMaleStr())) {
+                entity.setGenderRequirement(true);
+            } else if (genReq.equalsIgnoreCase(parserConfig.getFemaleStr())) {
+                entity.setGenderRequirement(false);
+            }
+            entity.setName(jobItem.getJobName());
+            entity.setNumOfVacancy((int) jobItem.getNumOfVacancy());
+            entity.setOtherRequirement(jobItem.getOtherRequirement());
+            try {
+                Date upDate = DateHelper.convertToJavaDate(parserConfig.getDateFormat(), jobItem.getUpdatedDate());
+                entity.setUpdatedDate(upDate);
+            } catch (Exception e) {
+                entity.setUpdatedDate(new Date());
+            }
+            entity.setUrl(jobItem.getUrl());
+            try {
+                Matcher matcher = RegexHelper.matcherDotAll(jobItem.getSalaryRange(), parserConfig.getSalaryRangeRegex());
+                if (matcher.find()) {
+                    Double from = Double.parseDouble(matcher.group(1)) * parserConfig.getMoneyConversion();
+                    Double to = Double.parseDouble(matcher.group(2)) * parserConfig.getMoneyConversion();
+                    entity.setSalaryFrom(from);
+                    entity.setSalaryTo(to);
+                }
+            } catch (Exception e) {
+            }
         } else {
-            Date updatedDate = DateHelper.convertToJavaDate("dd/MM/yyyy", jobItem.getUpdatedDate());
+            Date updatedDate = DateHelper.convertToJavaDate(parserConfig.getDateFormat(), jobItem.getUpdatedDate());
             boolean needUpdated = jobPostService.needUpdatedJobPost(code, updatedDate);
             if (needUpdated) {
 
@@ -155,9 +198,15 @@ public class Parser {
         }
     }
 
-    protected Company getOrCreateCompany(JobItem.Company company) {
+    protected Company getOrCreateCompany(JobItem.Company company) throws Exception {
         String url = company.getDetailUrl();
-        String code = Parser.NAME + "_" + url.substring(url.lastIndexOf('-') + 1, url.lastIndexOf('.'));
+        Matcher matcher = RegexHelper.matcherDotAll(url, parserConfig.getCodeFromUrlRegex());
+        String code = null;
+        if (matcher.find()) {
+            code = matcher.group(1);
+        } else {
+            throw new Exception("Code not found");
+        }
         List<Company> list = companyService.queryCompanyByCode(code, (Integer id) -> {
             return new Company(id);
         }, "id");
@@ -167,7 +216,7 @@ public class Parser {
             entity.setAddress(company.getAddress());
             entity.setDetailUrl(company.getDetailUrl());
             entity.setImage(company.getImage());
-            entity.setName(company.getCode());
+            entity.setName(company.getName());
             if (!companyService.validateForCreate(entity)) {
                 return null;
             }

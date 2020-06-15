@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -44,6 +45,13 @@ import javax.xml.bind.annotation.XmlType;
  *             &lt;/complexContent>
  *           &lt;/complexType>
  *         &lt;/element>
+ *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="dateFormat" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="maleStr" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="femaleStr" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="salaryRangeRegex" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="moneyConversion" type="{http://www.w3.org/2001/XMLSchema}unsignedInt"/>
+ *         &lt;element name="codeFromUrlRegex" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -55,7 +63,14 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
     "baseUrl",
-    "pages"
+    "pages",
+    "name",
+    "dateFormat",
+    "maleStr",
+    "femaleStr",
+    "salaryRangeRegex",
+    "moneyConversion",
+    "codeFromUrlRegex"
 })
 @XmlRootElement(name = "parserConfig")
 public class ParserConfig {
@@ -64,6 +79,20 @@ public class ParserConfig {
     protected String baseUrl;
     @XmlElement(required = true)
     protected ParserConfig.Pages pages;
+    @XmlElement(required = true)
+    protected String name;
+    @XmlElement(required = true)
+    protected String dateFormat;
+    @XmlElement(required = true)
+    protected String maleStr;
+    @XmlElement(required = true)
+    protected String femaleStr;
+    @XmlElement(required = true)
+    protected String salaryRangeRegex;
+    @XmlSchemaType(name = "unsignedInt")
+    protected long moneyConversion;
+    @XmlElement(required = true)
+    protected String codeFromUrlRegex;
 
     /**
      * Gets the value of the baseUrl property.
@@ -111,6 +140,166 @@ public class ParserConfig {
      */
     public void setPages(ParserConfig.Pages value) {
         this.pages = value;
+    }
+
+    /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
+
+    /**
+     * Gets the value of the dateFormat property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    /**
+     * Sets the value of the dateFormat property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDateFormat(String value) {
+        this.dateFormat = value;
+    }
+
+    /**
+     * Gets the value of the maleStr property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getMaleStr() {
+        return maleStr;
+    }
+
+    /**
+     * Sets the value of the maleStr property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setMaleStr(String value) {
+        this.maleStr = value;
+    }
+
+    /**
+     * Gets the value of the femaleStr property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getFemaleStr() {
+        return femaleStr;
+    }
+
+    /**
+     * Sets the value of the femaleStr property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setFemaleStr(String value) {
+        this.femaleStr = value;
+    }
+
+    /**
+     * Gets the value of the salaryRangeRegex property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSalaryRangeRegex() {
+        return salaryRangeRegex;
+    }
+
+    /**
+     * Sets the value of the salaryRangeRegex property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSalaryRangeRegex(String value) {
+        this.salaryRangeRegex = value;
+    }
+
+    /**
+     * Gets the value of the moneyConversion property.
+     * 
+     */
+    public long getMoneyConversion() {
+        return moneyConversion;
+    }
+
+    /**
+     * Sets the value of the moneyConversion property.
+     * 
+     */
+    public void setMoneyConversion(long value) {
+        this.moneyConversion = value;
+    }
+
+    /**
+     * Gets the value of the codeFromUrlRegex property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCodeFromUrlRegex() {
+        return codeFromUrlRegex;
+    }
+
+    /**
+     * Sets the value of the codeFromUrlRegex property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCodeFromUrlRegex(String value) {
+        this.codeFromUrlRegex = value;
     }
 
 

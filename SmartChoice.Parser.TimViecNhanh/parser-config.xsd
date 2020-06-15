@@ -20,6 +20,14 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="name" type="xs:string" />
+        <xs:element name="dateFormat" type="xs:string" />
+        <xs:element name="maleStr" type="xs:string" />
+        <xs:element name="femaleStr" type="xs:string" />
+        <xs:element name="salaryRangeRegex" type="xs:string" />
+        <xs:element name="moneyConversion" type="xs:unsignedInt" />
+        <xs:element name="codeFromUrlRegex" type="xs:string" />
+        <xs:element name="pagingAppendStr" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
