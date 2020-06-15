@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.StringReader;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -65,7 +66,9 @@ public class XMLHelper {
     public static Document parseDOMFromString(String srcXml) throws ParserConfigurationException, SAXException, IOException {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        InputStream is = FileHelper.getStreamFromString(srcXml);
+        InputStreamReader reader = new InputStreamReader(FileHelper.getStreamFromString(srcXml), "UTF-8");
+        InputSource is = new InputSource(reader);
+        is.setEncoding("UTF-8");
         Document doc = builder.parse(is);
         return doc;
     }
