@@ -242,7 +242,7 @@ public class Parser {
         Matcher matcher = RegexHelper.matcherDotAll(url, parserConfig.getCodeFromUrlRegex());
         String code = null;
         if (matcher.find()) {
-            code = matcher.group(1);
+            code = parserConfig.getName() + "_" + matcher.group(1);
         } else {
             throw new Exception("Code not found");
         }
