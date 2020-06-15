@@ -52,6 +52,28 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="salaryRangeRegex" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="moneyConversion" type="{http://www.w3.org/2001/XMLSchema}unsignedInt"/>
  *         &lt;element name="codeFromUrlRegex" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="careerMapping">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="item" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
+ *         &lt;element name="locationMapping">
+ *           &lt;complexType>
+ *             &lt;complexContent>
+ *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *                 &lt;sequence>
+ *                   &lt;element name="item" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
+ *                 &lt;/sequence>
+ *               &lt;/restriction>
+ *             &lt;/complexContent>
+ *           &lt;/complexType>
+ *         &lt;/element>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -70,7 +92,9 @@ import javax.xml.bind.annotation.XmlType;
     "femaleStr",
     "salaryRangeRegex",
     "moneyConversion",
-    "codeFromUrlRegex"
+    "codeFromUrlRegex",
+    "careerMapping",
+    "locationMapping"
 })
 @XmlRootElement(name = "parserConfig")
 public class ParserConfig {
@@ -93,6 +117,10 @@ public class ParserConfig {
     protected long moneyConversion;
     @XmlElement(required = true)
     protected String codeFromUrlRegex;
+    @XmlElement(required = true)
+    protected ParserConfig.CareerMapping careerMapping;
+    @XmlElement(required = true)
+    protected ParserConfig.LocationMapping locationMapping;
 
     /**
      * Gets the value of the baseUrl property.
@@ -300,6 +328,174 @@ public class ParserConfig {
      */
     public void setCodeFromUrlRegex(String value) {
         this.codeFromUrlRegex = value;
+    }
+
+    /**
+     * Gets the value of the careerMapping property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ParserConfig.CareerMapping }
+     *     
+     */
+    public ParserConfig.CareerMapping getCareerMapping() {
+        return careerMapping;
+    }
+
+    /**
+     * Sets the value of the careerMapping property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ParserConfig.CareerMapping }
+     *     
+     */
+    public void setCareerMapping(ParserConfig.CareerMapping value) {
+        this.careerMapping = value;
+    }
+
+    /**
+     * Gets the value of the locationMapping property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link ParserConfig.LocationMapping }
+     *     
+     */
+    public ParserConfig.LocationMapping getLocationMapping() {
+        return locationMapping;
+    }
+
+    /**
+     * Sets the value of the locationMapping property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link ParserConfig.LocationMapping }
+     *     
+     */
+    public void setLocationMapping(ParserConfig.LocationMapping value) {
+        this.locationMapping = value;
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
+     *         &lt;element name="item" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "item"
+    })
+    public static class CareerMapping {
+
+        @XmlElement(required = true)
+        protected List<String> item;
+
+        /**
+         * Gets the value of the item property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the item property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getItem().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link String }
+         * 
+         * 
+         */
+        public List<String> getItem() {
+            if (item == null) {
+                item = new ArrayList<String>();
+            }
+            return this.item;
+        }
+
+    }
+
+
+    /**
+     * <p>Java class for anonymous complex type.
+     * 
+     * <p>The following schema fragment specifies the expected content contained within this class.
+     * 
+     * <pre>
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;sequence>
+     *         &lt;element name="item" type="{http://www.w3.org/2001/XMLSchema}string" maxOccurs="unbounded"/>
+     *       &lt;/sequence>
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+     * &lt;/complexType>
+     * </pre>
+     * 
+     * 
+     */
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlType(name = "", propOrder = {
+        "item"
+    })
+    public static class LocationMapping {
+
+        @XmlElement(required = true)
+        protected List<String> item;
+
+        /**
+         * Gets the value of the item property.
+         * 
+         * <p>
+         * This accessor method returns a reference to the live list,
+         * not a snapshot. Therefore any modification you make to the
+         * returned list will be present inside the JAXB object.
+         * This is why there is not a <CODE>set</CODE> method for the item property.
+         * 
+         * <p>
+         * For example, to add a new item, do as follows:
+         * <pre>
+         *    getItem().add(newItem);
+         * </pre>
+         * 
+         * 
+         * <p>
+         * Objects of the following type(s) are allowed in the list
+         * {@link String }
+         * 
+         * 
+         */
+        public List<String> getItem() {
+            if (item == null) {
+                item = new ArrayList<String>();
+            }
+            return this.item;
+        }
+
     }
 
 
