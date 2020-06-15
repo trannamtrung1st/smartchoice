@@ -198,15 +198,14 @@ public class Parser {
                 entity.setUpdatedDate(new Date());
             }
             entity.setUrl(jobItem.getUrl());
-            try {
-                Matcher matcher = RegexHelper.matcherDotAll(jobItem.getSalaryRange(), parserConfig.getSalaryRangeRegex());
-                if (matcher.find()) {
-                    Double from = Double.parseDouble(matcher.group(1)) * parserConfig.getMoneyConversion();
-                    Double to = Double.parseDouble(matcher.group(2)) * parserConfig.getMoneyConversion();
-                    entity.setSalaryFrom(from);
-                    entity.setSalaryTo(to);
-                }
-            } catch (Exception e) {
+            Matcher matcher = RegexHelper.matcherDotAll(jobItem.getSalaryRange(), parserConfig.getSalaryRangeRegex());
+            if (matcher.find()) {
+                Double from = Double.parseDouble(matcher.group(1)) * parserConfig.getMoneyConversion();
+                Double to = Double.parseDouble(matcher.group(2)) * parserConfig.getMoneyConversion();
+                entity.setSalaryFrom(from);
+                entity.setSalaryTo(to);
+            } else {
+                throw new Exception("Salary not found");
             }
             //add relationships
             for (String item : jobItem.getWorkLocations().getItem()) {

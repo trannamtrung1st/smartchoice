@@ -22,7 +22,7 @@
   <dateFormat>dd-MM-yyyy</dateFormat>
   <maleStr>nam</maleStr>
   <femaleStr>nữ</femaleStr>
-  <salaryRangeRegex><![CDATA[([0-9]+?)[ ]*?-[ ]*?([0-9]+?)[ ]]]></salaryRangeRegex>
+  <salaryRangeRegex><![CDATA[([0-9]+?)[ ]*?[-–][ ]*?([0-9]+?)[ ]]]></salaryRangeRegex>
   <moneyConversion>1000000</moneyConversion>
   <codeFromUrlRegex><![CDATA[.*-([a-zA-Z0-9]+?)[.]html.*]]></codeFromUrlRegex>
   <pagingAppendStr>?page={p}</pagingAppendStr>

@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.nio.file.FileVisitOption;
 import java.nio.file.Files;
 import java.nio.file.OpenOption;
@@ -77,5 +78,9 @@ public class FileHelper {
 
     public static InputStream getStreamFromString(String str) {
         return new ByteArrayInputStream(str.getBytes());
+    }
+
+    public static StringReader getReaderFromString(String str) {
+        return new StringReader(str);
     }
 }
