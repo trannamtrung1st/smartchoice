@@ -53,6 +53,13 @@ public class CompanyService {
         return list.stream().map(mapping).collect(Collectors.toList());
     }
 
+    public Company findCompanyByCode(String code) {
+        String sql = "SELECT * FROM Company WHERE code=?code";
+        Query query = companyDAO.nativeQuery(sql, Company.class).setParameter("code", code);
+        List<Company> list = query.getResultList();
+        return list.size() > 0 ? list.get(0) : null;
+    }
+
     public boolean validateForCreate(Company entity) {
         if (entity.getName() == null || entity.getName().trim().isEmpty()) {
             return false;

@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import smartchoice.data.daos.JobPostDAO;
 import smartchoice.data.models.CareerField;
+import smartchoice.data.models.Company;
 import smartchoice.data.models.JobPost;
 import smartchoice.data.models.Location;
 import smartchoice.helper.DateHelper;
@@ -53,13 +54,29 @@ public class JobPostService {
         return jobPostDAO.create(entity);
     }
 
-    public void addJobPostLocation(JobPost entity, Location location) {
-        Collection<JobPost> collection = location.getJobPostCollection();
-        if (collection == null) {
-            collection = new ArrayList<>();
-            location.setJobPostCollection(collection);
+    public void setJobPostCompany(JobPost entity, Company company) {
+        entity.setCompanyId(company);
+        Collection<JobPost> jobCol = company.getJobPostCollection();
+        if (jobCol == null) {
+            jobCol = new ArrayList<>();
+            company.setJobPostCollection(jobCol);
         }
-        collection.add(entity);
+        company.getJobPostCollection().add(entity);
+    }
+
+    public void addJobPostLocation(JobPost entity, Location location) {
+        Collection<JobPost> jobCollection = location.getJobPostCollection();
+        if (jobCollection == null) {
+            jobCollection = new ArrayList<>();
+            location.setJobPostCollection(jobCollection);
+        }
+        jobCollection.add(entity);
+        Collection<Location> locCollection = entity.getLocationCollection();
+        if (locCollection == null) {
+            locCollection = new ArrayList<>();
+            entity.setLocationCollection(locCollection);
+        }
+        locCollection.add(location);
     }
 
     public void addJobPostCareerField(JobPost entity, CareerField field) {
@@ -69,6 +86,12 @@ public class JobPostService {
             field.setJobPostCollection(collection);
         }
         collection.add(entity);
+        Collection<CareerField> fieldCollection = entity.getCareerFieldCollection();
+        if (fieldCollection == null) {
+            fieldCollection = new ArrayList<>();
+            entity.setCareerFieldCollection(fieldCollection);
+        }
+        fieldCollection.add(field);
     }
 
 }

@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -126,15 +128,16 @@ public class Parser {
     protected void parseJobLinks() {
         System.out.println("Size: " + jobLinks.size());
         for (String jobLink : jobLinks) {
+            JobItem currentJobItem = null;
             try {
                 System.out.println("Start parsing page: " + jobLink);
                 String pageContent = preprocess(jobLink);
 //                FileHelper.writeToFile(pageContent, "temp.html");
                 String modelXml = transform(jobLink, pageContent);
 //                FileHelper.writeToFile(modelXml, "temp.xml");
-                JobItem jobItem = XMLHelper.unmarshallDocXml(modelXml, smartchoice.parser.timviecnhanh.models.schema.ObjectFactory.class);
-                processJobItem(jobItem);
-                System.out.println(jobItem.getJobName());
+                currentJobItem = XMLHelper.unmarshallDocXml(modelXml, smartchoice.parser.timviecnhanh.models.schema.ObjectFactory.class);
+                processJobItem(currentJobItem);
+                System.out.println(currentJobItem.getJobName());
                 System.out.println("Finish parsing page: " + jobLink);
                 System.out.println("------------------------");
             } catch (IOException | TransformerException e) {
@@ -160,7 +163,7 @@ public class Parser {
             JobPost entity = new JobPost();
             entity.setBenefit(jobItem.getBenefit());
             entity.setCode(code);
-            entity.setCompanyId(company);
+            jobPostService.setJobPostCompany(entity, company);
             entity.setContactAddress(jobItem.getContactAddress());
             entity.setContactPerson(jobItem.getContactPerson());
             entity.setDegreeRequirement(jobItem.getDegreeRequirement());
@@ -203,13 +206,19 @@ public class Parser {
                 String itemTrim = item.trim();
                 String locName = locationMapping.getOrDefault(itemTrim, itemTrim);
                 Location loc = locationService.findLocationByName(locName);
-                jobPostService.addJobPostLocation(entity, loc);
+                Collection<Location> locCol = entity.getLocationCollection();
+                if (locCol == null || !locCol.stream().anyMatch(o -> o.getName().equals(locName))) {
+                    jobPostService.addJobPostLocation(entity, loc);
+                }
             }
             for (String item : jobItem.getCareerFields().getItem()) {
                 String itemTrim = item.trim();
                 String fieldName = careerMapping.getOrDefault(itemTrim, itemTrim);
-                CareerField field = getOrCreateCareerField(fieldName);
-                jobPostService.addJobPostCareerField(entity, field);
+                CareerField field = careerFieldService.findCareerFieldByName(fieldName).get(0);
+                Collection<CareerField> fieldCol = entity.getCareerFieldCollection();
+                if (fieldCol == null || !fieldCol.stream().anyMatch(o -> o.getId().equals(field.getId()))) {
+                    jobPostService.addJobPostCareerField(entity, field);
+                }
             }
             entityManager.getTransaction().begin();
             jobPostService.createJobPost(entity);
@@ -223,22 +232,6 @@ public class Parser {
         }
     }
 
-    protected CareerField getOrCreateCareerField(String name) throws Exception {
-        List<CareerField> list = careerFieldService.findCareerFieldByName(name);
-        if (list.isEmpty()) {
-            CareerField entity = new CareerField();
-            entity.setName(name);
-            if (!careerFieldService.validateForCreate(entity)) {
-                return null;
-            }
-            entityManager.getTransaction().begin();
-            careerFieldService.createCareerField(entity);
-            entityManager.getTransaction().commit();
-            return entity;
-        }
-        return list.get(0);
-    }
-
     protected Company getOrCreateCompany(JobItem.Company company) throws Exception {
         String url = company.getDetailUrl();
         Matcher matcher = RegexHelper.matcherDotAll(url, parserConfig.getCodeFromUrlRegex());
@@ -248,11 +241,9 @@ public class Parser {
         } else {
             throw new Exception("Code not found");
         }
-        List<Company> list = companyService.queryCompanyByCode(code, (Integer id) -> {
-            return new Company(id);
-        }, "id");
-        if (list.isEmpty()) {
-            Company entity = new Company();
+        Company entity = companyService.findCompanyByCode(code);
+        if (entity == null) {
+            entity = new Company();
             entity.setCode(code);
             entity.setAddress(company.getAddress());
             entity.setDetailUrl(company.getDetailUrl());
@@ -264,9 +255,8 @@ public class Parser {
             entityManager.getTransaction().begin();
             companyService.createCompany(entity);
             entityManager.getTransaction().commit();
-            return entity;
         }
-        return list.get(0);
+        return entity;
     }
 
     protected String transform(String pageUrl, String pageContent) throws TransformerConfigurationException, FileNotFoundException, TransformerException, Exception {
