@@ -38,7 +38,7 @@ public class Entry {
             int i = 0;
             String line;
             em.getTransaction().begin();
-            while (!(line = lines.get(i++)).equals("###")) {
+            while ((line = lines.get(i++)) != null) {
                 System.out.println(line);
                 CareerField entity = new CareerField();
                 entity.setName(line);
@@ -57,7 +57,7 @@ public class Entry {
             int i = 0;
             String line;
             em.getTransaction().begin();
-            while (!(line = lines.get(i++)).equals("###")) {
+            while ((line = lines.get(i++)) != null) {
                 System.out.println(line);
                 Location entity = new Location();
                 entity.setName(line);

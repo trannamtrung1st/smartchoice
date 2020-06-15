@@ -44,4 +44,8 @@ public abstract class BaseDAO<T> {
     public Query nativeQuery(String sql) {
         return eManager.createNativeQuery(sql);
     }
+
+    public Query nativeQuery(String sql, Class<T> resultClass) {
+        return eManager.createNativeQuery(sql, resultClass);
+    }
 }

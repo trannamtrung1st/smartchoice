@@ -53,8 +53,8 @@ public class CompanyService {
         return list.stream().map(mapping).collect(Collectors.toList());
     }
 
-    public boolean validateForCreate(Company company) {
-        if (company.getName() == null || company.getName().trim().isEmpty()) {
+    public boolean validateForCreate(Company entity) {
+        if (entity.getName() == null || entity.getName().trim().isEmpty()) {
             return false;
         }
         return true;

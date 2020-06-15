@@ -26,4 +26,168 @@
   <moneyConversion>1000000</moneyConversion>
   <codeFromUrlRegex><![CDATA[.*-([a-zA-Z0-9]+?)[.]html.*]]></codeFromUrlRegex>
   <pagingAppendStr>?page={p}</pagingAppendStr>
+  <careerMapping>
+    <item>Công nghệ thông tin~Công nghệ thông tin</item>
+    <item>Dệt may~Dệt may/Thuộc da</item>
+    <item>Du lịch/Nhà hàng/Khách sạn~Du lịch/Nhà hàng/Khách sạn</item>
+    <item>Giải trí/Vui chơi~Giải trí/Vui chơi</item>
+    <item>Giao thông/Vận tải/Thủy lợi/Cầu đường~Giao thông/Vận tải/Thủy lợi/Cầu đường</item>
+    <item>Hành chính/Thư ký/Trợ lý~Hành chính/Văn phòng</item>
+    <item>Kho vận/Vật tư/Thu mua~Kho vận/Vật tư/Thu mua</item>
+    <item>Kiến trúc/Nội thất~Kiến trúc/Nội thất</item>
+    <item>Làm đẹp/Thể lực/Spa~Mỹ phẩm/Thời trang/Trang sức</item>
+    <item>Luật/Pháp lý~Luật/Pháp lý</item>
+    <item>Mỹ phẩm/Thời trang/Trang sức~Mỹ phẩm/Thời trang/Trang sức</item>
+    <item>Nghệ thuật/Điện ảnh~Nghệ thuật/Điện ảnh</item>
+    <item>Nhân sự~Nhân sự</item>
+    <item>PG/PB/Lễ tân~PG/PB/Lễ tân</item>
+    <item>Phục vụ/Tạp vụ/Giúp việc~Phục vụ/Tạp vụ/Giúp việc</item>
+    <item>Quản lý điều hành~Quản lý điều hành</item>
+    <item>Sản xuất/Vận hành sản xuất~Sản xuất/Vận hành sản xuất</item>
+    <item>Tài chính/Kế toán/Kiểm toán~Tài chính/Kế toán/Kiểm toán/Đầu tư</item>
+    <item>Thẩm định/Giám định/Quản lý chất lượng~Thẩm định/Giám định/Quản lý chất lượng</item>
+    <item>Thiết kế/Mỹ thuật~Thiết kế/Mỹ thuật</item>
+    <item>Thực phẩm/DV ăn uống~Thực phẩm/DV ăn uống</item>
+    <item>Trang thiết bị gia dụng~Trang thiết bị gia dụng</item>
+    <item>Tư vấn bảo hiểm~Bảo hiểm</item>
+    <item>Xuất-Nhập khẩu/Ngoại thương~Xuất-Nhập khẩu/Ngoại thương</item>
+    <item>Dầu khí/Địa chất~Dầu khí/Hóa chất</item>
+    <item>Điện/Điện tử/Điện lạnh~Điện/Điện tử/Điện lạnh</item>
+    <item>Dược/Hóa chất/Sinh hóa~Dược/Hóa chất/Sinh hóa</item>
+    <item>Giáo dục/Đào tạo/Thư viện~Giáo dục/Đào tạo/Thư viện</item>
+    <item>Giày da/Thuộc da~Dệt may/Thuộc da</item>
+    <item>Khác~Khác</item>
+    <item>Khu chế xuất/Khu công nghiệp~Công nghiệp</item>
+    <item>Kinh doanh~Kinh doanh</item>
+    <item>Lao động phổ thông~Lao động phổ thông</item>
+    <item>Môi trường/Xử lý chất thải~Môi trường/Xử lý chất thải</item>
+    <item>Ngân hàng/Chứng khoán/Đầu tư~Ngân hàng/Chứng khoán/Đầu tư</item>
+    <item>Ngoại ngữ~Ngoại ngữ</item>
+    <item>Nông/Lâm/Ngư nghiệp~Nông/Lâm/Ngư nghiệp</item>
+    <item>Phát triển thị trường~Phát triển thị trường</item>
+    <item>Quan hệ đối ngoại~Quan hệ đối ngoại</item>
+    <item>Quảng cáo/Marketing/PR~Quảng cáo/Marketing/PR</item>
+    <item>Sinh viên/Mới tốt nghiệp/Thực tập~Sinh viên/Mới tốt nghiệp/Thực tập</item>
+    <item>Tài xế/Lái xe/Giao nhận~Tài xế/Lái xe/Giao nhận</item>
+    <item>Thể dục/Thể thao~Thể dục/Thể thao</item>
+    <item>Thời vụ/Bán thời gian~Thời vụ/Bán thời gian</item>
+    <item>Trang thiết bị công nghiệp~Trang thiết bị công nghiệp</item>
+    <item>Trang thiết bị văn phòng~Trang thiết bị văn phòng</item>
+    <item>Xây dựng~Xây dựng</item>
+    <item>Y tế~Y tế</item>
+    <item>An ninh-Bảo vệ~An ninh-Bảo vệ</item>
+    <item>Bán hàng~Kinh doanh</item>
+    <item>Báo chí-Truyền hình~Báo chí-Truyền hình</item>
+    <item>Bảo hiểm~Bảo hiểm</item>
+    <item>Biên-Phiên dịch~Biên-Phiên dịch</item>
+    <item>Bưu chính~Bưu chính</item>
+    <item>Chứng khoán- Vàng~Ngân hàng/Chứng khoán/Đầu tư</item>
+    <item>Cơ khí-Chế tạo~Cơ khí-Chế tạo</item>
+    <item>Công nghệ cao~Công nghệ cao</item>
+    <item>Công nghiệp~Công nghiệp</item>
+    <item>Dầu khí-Hóa chất~Dầu khí/Hóa chất</item>
+    <item>Dệt may - Da giày~Dệt may/Thuộc da</item>
+    <item>Dịch vụ~Dịch vụ</item>
+    <item>Du lịch~Du lịch/Nhà hàng/Khách sạn</item>
+    <item>Điện tử viễn thông~Điện tử viễn thông</item>
+    <item>Điện-Điện tử-Điện lạnh~Điện/Điện tử/Điện lạnh</item>
+    <item>Game~Giải trí/Vui chơi</item>
+    <item>Giáo dục-Đào tạo~Giáo dục/Đào tạo/Thư viện</item>
+    <item>Hàng gia dụng~Trang thiết bị gia dụng</item>
+    <item>Hàng hải~Hàng hải</item>
+    <item>Hàng không~Hàng không</item>
+    <item>Hành chính-Văn phòng~Hành chính/Văn phòng</item>
+    <item>Hoá học-Sinh học~Dược/Hóa chất/Sinh hóa</item>
+    <item>Hoạch định-Dự án~Hoạch định-Dự án</item>
+    <item>In ấn-Xuất bản~In ấn-Xuất bản</item>
+    <item>IT phần cứng/mạng~Công nghệ thông tin</item>
+    <item>IT phần mềm~Công nghệ thông tin</item>
+    <item>KD bất động sản~Bất động sản</item>
+    <item>Kế toán-Kiểm toán~Tài chính/Kế toán/Kiểm toán/Đầu tư</item>
+    <item>Khách sạn-Nhà hàng~Du lịch/Nhà hàng/Khách sạn</item>
+    <item>Kho vận-Vật tư~Kho vận/Vật tư/Thu mua</item>
+    <item>Kiến trúc-TK nội thất~Kiến trúc/Nội thất</item>
+    <item>Kỹ thuật~Kỹ thuật</item>
+    <item>Kỹ thuật ứng dụng~Kỹ thuật</item>
+    <item>Marketing-PR~Quảng cáo/Marketing/PR</item>
+    <item>Ngân hàng~Ngân hàng/Chứng khoán/Đầu tư</item>
+    <item>Ngành nghề khác~Khác</item>
+    <item>Nghệ thuật - Điện ảnh~Nghệ thuật/Điện ảnh</item>
+    <item>Ngoại thương-Xuất nhập khẩu~Xuất-Nhập khẩu/Ngoại thương</item>
+    <item>
+      Nhân sự~Nhân sự
+    </item>
+    <item>
+      Nhân viên kinh doanh~Kinh doanh
+    </item>
+    <item>
+      Nông-Lâm-Ngư nghiệp~Nông/Lâm/Ngư nghiệp
+    </item>
+    <item>
+      Ô tô - Xe máy~Ô tô - Xe máy
+    </item>
+    <item>
+      Pháp lý-Luật~Luật/Pháp lý
+    </item>
+    <item>
+      Quan hệ đối ngoại~Quan hệ đối ngoại
+    </item>
+    <item>
+      Quản trị kinh doanh~Kinh doanh
+    </item>
+    <item>
+      Spa-Mỹ phẩm-Trang sức~Làm đẹp/Thể lực/Spa
+    </item>
+    <item>
+      Tài chính-Đầu tư~Tài chính/Kế toán/Kiểm toán/Đầu tư
+    </item>
+    <item>
+      Thiết kế đồ hoạ web~Thiết kế web
+    </item>
+    <item>
+      Thiết kế-Mỹ thuật~Thiết kế/Mỹ thuật
+    </item>
+    <item>
+      Thời trang~Mỹ phẩm/Thời trang/Trang sức
+    </item>
+    <item>
+      Thủ công mỹ nghệ~Thủ công mỹ nghệ
+    </item>
+    <item>
+      Thư ký-Trợ lý~Hành chính/Văn phòng
+    </item>
+    <item>
+      Thực phẩm-Đồ uống~Thực phẩm/DV ăn uống
+    </item>
+    <item>
+      Thương mại điện tử~Thương mại điện tử
+    </item>
+    <item>
+      Tiếp thị-Quảng cáo~Quảng cáo/Marketing/PR
+    </item>
+    <item>
+      Tổ chức sự kiện-Quà tặng~Tổ chức sự kiện
+    </item>
+    <item>
+      Tư vấn~Tư vấn
+    </item>
+    <item>
+      Vận tải~Giao thông/Vận tải/Thủy lợi/Cầu đường
+    </item>
+    <item>
+      Xây dựng~Xây dựng
+    </item>
+    <item>Y tế-Dược~Y tế</item>
+  </careerMapping>
+  <locationMapping>
+    <item>
+      Hồ Chí Minh~TP.HCM
+    </item>
+    <item>
+      Bà Rịa-Vũng Tàu~Bà Rịa - Vũng Tàu
+    </item>
+    <item>
+      Thừa Thiên-Huế~Thừa Thiên Huế
+    </item>
+  </locationMapping>
 </parserConfig>

@@ -6,6 +6,7 @@
 package smartchoice.data.models;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,6 +24,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -89,6 +93,13 @@ public class JobPost implements Serializable {
     private String contactPerson;
     @Column(length = 500)
     private String contactAddress;
+    @JoinTable(name = "JobLocation", joinColumns = {
+        @JoinColumn(name = "jobPostId", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "locationName", referencedColumnName = "name", nullable = false)})
+    @ManyToMany
+    private Collection<Location> locationCollection;
+    @ManyToMany(mappedBy = "jobPostCollection")
+    private Collection<CareerField> careerFieldCollection;
     @JoinColumn(name = "companyId", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
     private Company companyId;
@@ -240,6 +251,24 @@ public class JobPost implements Serializable {
 
     public void setContactAddress(String contactAddress) {
         this.contactAddress = contactAddress;
+    }
+
+    @XmlTransient
+    public Collection<Location> getLocationCollection() {
+        return locationCollection;
+    }
+
+    public void setLocationCollection(Collection<Location> locationCollection) {
+        this.locationCollection = locationCollection;
+    }
+
+    @XmlTransient
+    public Collection<CareerField> getCareerFieldCollection() {
+        return careerFieldCollection;
+    }
+
+    public void setCareerFieldCollection(Collection<CareerField> careerFieldCollection) {
+        this.careerFieldCollection = careerFieldCollection;
     }
 
     public Company getCompanyId() {

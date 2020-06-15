@@ -28,6 +28,20 @@
         <xs:element name="moneyConversion" type="xs:unsignedInt" />
         <xs:element name="codeFromUrlRegex" type="xs:string" />
         <xs:element name="pagingAppendStr" type="xs:string" />
+        <xs:element name="careerMapping">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="item" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="locationMapping">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element maxOccurs="unbounded" name="item" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

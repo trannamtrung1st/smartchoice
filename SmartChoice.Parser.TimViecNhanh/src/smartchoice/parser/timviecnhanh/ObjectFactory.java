@@ -46,6 +46,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ParserConfig.CareerMapping }
+     * 
+     */
+    public ParserConfig.CareerMapping createParserConfigCareerMapping() {
+        return new ParserConfig.CareerMapping();
+    }
+
+    /**
+     * Create an instance of {@link ParserConfig.LocationMapping }
+     * 
+     */
+    public ParserConfig.LocationMapping createParserConfigLocationMapping() {
+        return new ParserConfig.LocationMapping();
+    }
+
+    /**
      * Create an instance of {@link ParserConfig.Pages.Page }
      * 
      */

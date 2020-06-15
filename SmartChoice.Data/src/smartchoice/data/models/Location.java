@@ -8,13 +8,12 @@ package smartchoice.data.models;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -38,8 +37,8 @@ public class Location implements Serializable {
     @Column(nullable = false, length = 50)
     private String name;
     private Boolean isInVietNam;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
-    private Collection<JobLocation> jobLocationCollection;
+    @ManyToMany(mappedBy = "locationCollection")
+    private Collection<JobPost> jobPostCollection;
 
     public Location() {
     }
@@ -65,12 +64,12 @@ public class Location implements Serializable {
     }
 
     @XmlTransient
-    public Collection<JobLocation> getJobLocationCollection() {
-        return jobLocationCollection;
+    public Collection<JobPost> getJobPostCollection() {
+        return jobPostCollection;
     }
 
-    public void setJobLocationCollection(Collection<JobLocation> jobLocationCollection) {
-        this.jobLocationCollection = jobLocationCollection;
+    public void setJobPostCollection(Collection<JobPost> jobPostCollection) {
+        this.jobPostCollection = jobPostCollection;
     }
 
     @Override

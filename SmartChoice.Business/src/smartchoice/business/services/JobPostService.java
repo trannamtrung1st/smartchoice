@@ -5,13 +5,17 @@
  */
 package smartchoice.business.services;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import smartchoice.data.daos.JobPostDAO;
+import smartchoice.data.models.CareerField;
 import smartchoice.data.models.JobPost;
+import smartchoice.data.models.Location;
 import smartchoice.helper.DateHelper;
 
 /**
@@ -47,6 +51,24 @@ public class JobPostService {
 
     public JobPost createJobPost(JobPost entity) {
         return jobPostDAO.create(entity);
+    }
+
+    public void addJobPostLocation(JobPost entity, Location location) {
+        Collection<JobPost> collection = location.getJobPostCollection();
+        if (collection == null) {
+            collection = new ArrayList<>();
+            location.setJobPostCollection(collection);
+        }
+        collection.add(entity);
+    }
+
+    public void addJobPostCareerField(JobPost entity, CareerField field) {
+        Collection<JobPost> collection = field.getJobPostCollection();
+        if (collection == null) {
+            collection = new ArrayList<>();
+            field.setJobPostCollection(collection);
+        }
+        collection.add(entity);
     }
 
 }

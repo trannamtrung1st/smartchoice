@@ -8,15 +8,16 @@ package smartchoice.data.models;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -43,8 +44,11 @@ public class CareerField implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false, length = 255)
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "careerField")
-    private Collection<JobField> jobFieldCollection;
+    @JoinTable(name = "JobField", joinColumns = {
+        @JoinColumn(name = "careerFieldId", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "jobPostId", referencedColumnName = "id", nullable = false)})
+    @ManyToMany
+    private Collection<JobPost> jobPostCollection;
 
     public CareerField() {
     }
@@ -75,12 +79,12 @@ public class CareerField implements Serializable {
     }
 
     @XmlTransient
-    public Collection<JobField> getJobFieldCollection() {
-        return jobFieldCollection;
+    public Collection<JobPost> getJobPostCollection() {
+        return jobPostCollection;
     }
 
-    public void setJobFieldCollection(Collection<JobField> jobFieldCollection) {
-        this.jobFieldCollection = jobFieldCollection;
+    public void setJobPostCollection(Collection<JobPost> jobPostCollection) {
+        this.jobPostCollection = jobPostCollection;
     }
 
     @Override
