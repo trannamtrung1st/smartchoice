@@ -2,6 +2,7 @@
 using SmartChoice.Analysis.Transformers.Text;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartChoice.Analysis.ConsoleClient
 {
@@ -9,21 +10,26 @@ namespace SmartChoice.Analysis.ConsoleClient
     {
         static void Main(string[] args)
         {
-            var context = new MLContext();
-            var text = new TextData
+            var listData = new List<TextData>()
             {
-                Text = "Anh ấy yêu cầu 10 năm kinh nghiệm, gắn bó với công ty.\n" +
-                "- Làm việc nghiêm túc, linh hoạt."
+                new TextData
+                {
+                    Text = "Anh ấy yêu cầu 10 năm kinh nghiệm, gắn bó với công ty.",
+                },
+                new TextData
+                {
+                    Text = "- Làm việc nghiêm túc, linh hoạt.",
+                }
             };
-            Console.WriteLine(text.Text);
-            //var tEngine = TextTransformer.GetTokenizeEngine(context);
-            //var tWords = tEngine.Predict(new TextData() { Text = nText.NormalizedText });
-            var nswEngine = TextTransformer.GetRemoveStopWordsEngine(context, VietnameseStopWords.STOP_WORDS);
-            var nswWords = nswEngine.Predict(text);
-            var nswText = string.Join(' ', nswWords.WordsWithoutStopWords);
-            var normalizeEngine = TextTransformer.GetNormalizeEngine(context);
-            var nText = normalizeEngine.Predict(new TextData() { Text = nswText });
-            Console.WriteLine(nText.NormalizedText);
+            var context = new MLContext();
+            var engine = TextTransformer.GetFeaturizeTextEngine(context, listData);
+            var finalData = engine.Predict(new TextData
+            {
+                Text = "Yêu cầu em nhất trên đời"
+            });
+            Console.Write("Features: ");
+            foreach (var f in finalData.Features)
+                Console.WriteLine(f);
         }
     }
 }
