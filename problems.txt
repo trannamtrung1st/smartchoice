@@ -3,3 +3,12 @@ Phù hợp hay không
 Tính chất công việc (công ty, môi trường)
 Định hướng công việc
 Mức lương phù hợp
+Đề xuất job => choosen
+-----
+Steps:
+1/ Filter features
+2/ Text encoding, Label data
+3/ Matrix data
+4/ Train
+5/ Evaluate
+6/ Use
