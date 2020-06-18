@@ -9,4 +9,10 @@
     <ProjectReference Include="..\SmartChoice.Analysis\SmartChoice.Analysis.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Data\vietnamese-stopwords.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

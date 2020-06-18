@@ -33,5 +33,20 @@ namespace SmartChoice.Analysis.Transformers.Text
                 NormalizedTextData>(normTextTransformer);
             return predictionEngine;
         }
+
+        public static PredictionEngine<TextData, NonStopWordsTextData>
+            GetRemoveStopWordsEngine(MLContext context, string[] stopWords)
+        {
+            var emptyDataView = context.Data.LoadFromEnumerable(new List<TextData>());
+            var textPipeline = context.Transforms.Text.TokenizeIntoWords("Words",
+                "Text")
+                .Append(context.Transforms.Text.RemoveStopWords(
+                "WordsWithoutStopWords", "Words", stopwords:
+                stopWords));
+            var textTransformer = textPipeline.Fit(emptyDataView);
+            var predictionEngine = context.Model.CreatePredictionEngine<TextData,
+                NonStopWordsTextData>(textTransformer);
+            return predictionEngine;
+        }
     }
 }
