@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SmartChoice.Analysis.Transformers.Text
 {
-    public class TokenizedText : TextData
+    public class TokenizedTextData : TextData
     {
         public string[] Words { get; set; }
     }
