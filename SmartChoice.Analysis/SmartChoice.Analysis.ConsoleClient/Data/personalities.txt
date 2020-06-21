@@ -1,0 +1,54 @@
+Aggressive: Hung hăng; xông xáo
+Ambitious: Có nhiều tham vọng
+Cautious: Thận trọng, cẩn thận
+Careful: Cẩn thận
+Cheerful: Vui vẻ
+Clever: Khéo léo
+Tacful: Khéo xử, lịch thiệp
+Competitive: Cạnh tranh, đua tranh
+Confident: Tự tin
+Creative: Sáng tạo
+Dependable: Đáng tin cậy
+Dumb: Không có tiếng nói
+Enthusiastic: Hăng hái, nhiệt tình
+Easy-going: Dễ tính
+Extroverted: Hướng ngoại
+Faithful: Chung thuỷ
+Introverted: Hướng nội
+Generous: Rộng lượng
+Gentle: Nhẹ nhàng
+Humorous: Hài hước
+Honest: Trung thực
+Imaginative: Giàu trí tưởng tượng
+Intelligent: Thông minh
+Kind: Tử tế
+Loyal: Trung thành
+Observant: Tinh ý
+Optimistic: Lạc quan
+Patient: Kiên nhẫn
+Pessimistic: Bi quan
+Polite: Lịch sự
+Outgoing: Hướng ngoại
+Friendly: Thân thiện
+Open-minded: Khoáng đạt
+Quite: Ít nói
+Rational: Có lý trí, có chừng mực
+Reckless: Hấp tấp
+Sincere: Thành thật, chân thật
+Stubborn: Bướng bỉnh
+Talkative: nói nhiều
+Understanding: Hiểu biết
+Wise: Thông thái, uyên bác
+Lazy: Lười biếng
+Hot-temper: Nóng tính
+Bad-temper: Khó chơi
+Selfish: Ích kỷ
+Mean: Keo kiệt
+Cold: Lạnh lùng
+Silly: Ngốc nghếch
+Crazy: Điên cuồng (mang tính tích cực)
+Mad: Điên, khùng
+Aggressive: Xấu bụng
+Unkind: Xấu bụng, không tốt
+Unpleasant: Khó chịu
+Cruel: Độc ác

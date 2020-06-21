@@ -1,0 +1,11 @@
+1 năm-1
+2 năm-2
+3 năm-3
+4 năm-4
+5 năm-5
+6 năm-6
+7 năm-7
+Chưa có kinh nghiệm-8
+Dưới 1 năm-9
+Không yêu cầu kinh nghiệm-10
+Trên 5 năm-11

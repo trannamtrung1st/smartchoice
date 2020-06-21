@@ -5,9 +5,7 @@ VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartChoice.Analysis", "SmartChoice.Analysis\SmartChoice.Analysis.csproj", "{11DAE42B-8DCA-4D7E-A53C-BADF79CEDE7E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartChoice.Analysis.JobRecommender", "SmartChoice.Analysis.JobRecommender\SmartChoice.Analysis.JobRecommender.csproj", "{10AE2FCF-0D0C-442C-A69F-E6CB070A78E7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartChoice.Analysis.ConsoleClient", "SmartChoice.Analysis.ConsoleClient\SmartChoice.Analysis.ConsoleClient.csproj", "{ACC92C41-FC6B-4F1F-93CA-6C99DB973495}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartChoice.Analysis.ConsoleClient", "SmartChoice.Analysis.ConsoleClient\SmartChoice.Analysis.ConsoleClient.csproj", "{ACC92C41-FC6B-4F1F-93CA-6C99DB973495}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		{11DAE42B-8DCA-4D7E-A53C-BADF79CEDE7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11DAE42B-8DCA-4D7E-A53C-BADF79CEDE7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11DAE42B-8DCA-4D7E-A53C-BADF79CEDE7E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10AE2FCF-0D0C-442C-A69F-E6CB070A78E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10AE2FCF-0D0C-442C-A69F-E6CB070A78E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10AE2FCF-0D0C-442C-A69F-E6CB070A78E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10AE2FCF-0D0C-442C-A69F-E6CB070A78E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{ACC92C41-FC6B-4F1F-93CA-6C99DB973495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ACC92C41-FC6B-4F1F-93CA-6C99DB973495}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACC92C41-FC6B-4F1F-93CA-6C99DB973495}.Release|Any CPU.ActiveCfg = Release|Any CPU

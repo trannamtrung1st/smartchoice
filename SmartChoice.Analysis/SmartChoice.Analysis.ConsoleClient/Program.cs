@@ -10,6 +10,11 @@ namespace SmartChoice.Analysis.ConsoleClient
     {
         static void Main(string[] args)
         {
+            
+        }
+
+        static void Test()
+        {
             var listData = new List<TextData>()
             {
                 new TextData

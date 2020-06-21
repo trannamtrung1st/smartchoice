@@ -1,0 +1,21 @@
+Watch TV: Xem TV
+Listen to music: Nghe nhạc
+Read books: Đọc sách
+Hang out with friends: Đi chơi với bạn bè
+Go to the pub: Đi bar, pub
+Travel: Du lịch
+Play sports: Chơi thể thao
+Go for a walk: Đi bộ
+Gardening: Làm vườn
+Go shopping: Đi shopping
+Go partying: Tham dự party
+Surf net: Lướt web
+Take photographs: Chụp ảnh
+Go swimming: Đi bơi
+Mountaineering: Leo núi
+Jogging: Chạy bộ
+Go to gym: Tập gym
+Sing: Ca hát
+Dance: Nhảy múa
+Sleep: Ngủ
+Play game: Chơi game
