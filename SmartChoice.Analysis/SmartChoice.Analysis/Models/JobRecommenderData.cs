@@ -13,17 +13,14 @@ namespace SmartChoice.Analysis.Models
         public string experienceRequirement { get; set; }
         public string degreeRequirement { get; set; }
         public int numOfVacancy { get; set; }
-        public int genderRequirement { get; set; }
+        public int? genderRequirement { get; set; }
         public string description { get; set; }
         public string benefit { get; set; }
         public string otherRequirement { get; set; }
-        public string contactAddress { get; set; }
         public int companyId { get; set; }
-        public string companyAddress { get; set; }
         public int fieldId { get; set; }
-        public string fieldName { get; set; }
-        public int isInVietNam { get; set; }
         public string locationName { get; set; }
+        public bool gender { get; set; }
         public string personality1 { get; set; }
         public string personality2 { get; set; }
         public string personality3 { get; set; }

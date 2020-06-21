@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartChoice.Analysis", "Sma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartChoice.Analysis.ConsoleClient", "SmartChoice.Analysis.ConsoleClient\SmartChoice.Analysis.ConsoleClient.csproj", "{ACC92C41-FC6B-4F1F-93CA-6C99DB973495}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartChoice.Analysis.WebSurvey", "SmartChoice.Analysis.WebSurvey\SmartChoice.Analysis.WebSurvey.csproj", "{E0821CF6-603F-49FA-81F3-9897AB69BBCC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{ACC92C41-FC6B-4F1F-93CA-6C99DB973495}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACC92C41-FC6B-4F1F-93CA-6C99DB973495}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACC92C41-FC6B-4F1F-93CA-6C99DB973495}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0821CF6-603F-49FA-81F3-9897AB69BBCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0821CF6-603F-49FA-81F3-9897AB69BBCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0821CF6-603F-49FA-81F3-9897AB69BBCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0821CF6-603F-49FA-81F3-9897AB69BBCC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

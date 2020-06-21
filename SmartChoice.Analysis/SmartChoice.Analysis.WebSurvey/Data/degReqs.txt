@@ -1,0 +1,8 @@
+Cao đẳng-1
+Chứng chỉ nghề-2
+Đại học-3
+Không yêu cầu-4
+Không yêu cầu bằng cấp-4
+Lao động phổ thông-5
+Trung cấp-6
+Trung học-7

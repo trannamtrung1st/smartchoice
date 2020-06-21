@@ -1,0 +1,239 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="container">
+    <form role="form" method="post">
+        <h3>Thông tin công việc</h3>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Tên công việc:
+            </label>
+            @Model.RandomPost.Name
+            <input type="hidden" name="jobName" value="@Model.RandomPost.Name" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Mức lương:
+            </label>
+            @Model.RandomPost.SalaryFrom?.ToString("#,##") -
+            @Model.RandomPost.SalaryTo?.ToString("#,##")
+            <input type="hidden" name="salaryFrom" value="@Model.RandomPost.SalaryFrom" />
+            <input type="hidden" name="salaryTo" value="@Model.RandomPost.SalaryTo" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Kinh nghiệm yêu cầu:
+            </label>
+            @Model.RandomPost.ExperienceRequirement
+            <input type="hidden" name="experienceRequirement" value="@Model.RandomPost.ExperienceRequirement" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Trình độ học vấn:
+            </label>
+            @Model.RandomPost.DegreeRequirement
+            <input type="hidden" name="degreeRequirement" value="@Model.RandomPost.DegreeRequirement" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Số lượng tuyển dụng:
+            </label>
+            @Model.RandomPost.NumOfVacancy
+            <input type="hidden" name="numOfVacancy" value="@Model.RandomPost.NumOfVacancy" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Yêu cầu giới tính:
+            </label>
+            @{
+                var gender = Model.RandomPost.GenderRequirement == null ? "Không yêu cầu" :
+                    Model.RandomPost.GenderRequirement == true ? "Nam" : "Nữ";
+            }
+            @gender
+            <input type="hidden" name="genderRequirement" value="@Model.RandomPost.GenderRequirement" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Mô tả:
+            </label>
+            @Model.RandomPost.Description
+            <input type="hidden" name="description" value="@Model.RandomPost.Description" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Lợi ích:
+            </label>
+            @Model.RandomPost.Benefit
+            <input type="hidden" name="benefit" value="@Model.RandomPost.Benefit" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Yêu cầu khác:
+            </label>
+            @Model.RandomPost.OtherRequirement
+            <input type="hidden" name="otherRequirement" value="@Model.RandomPost.OtherRequirement" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Địa chỉ liên lạc:
+            </label>
+            @Model.RandomPost.ContactAddress
+            <input type="hidden" name="contactAddress" value="@Model.RandomPost.ContactAddress" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Công ty:
+            </label>
+            @Model.RandomPost.Company.Name
+            <input type="hidden" name="companyId" value="@Model.RandomPost.CompanyId" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Địa chỉ công ty:
+            </label>
+            @Model.RandomPost.Company.Address
+            <input type="hidden" name="companyAddress" value="@Model.RandomPost.Company.Address" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Chuyên môn:
+            </label>
+            @{
+                var fields = Model.RandomPost.JobField.ToList();
+                var count = fields.Count();
+                var random = new Random().Next(0, count);
+                var field = fields[random];
+            }
+            @field.CareerField.Name
+            <input type="hidden" name="fieldId" value="@field.CareerFieldId" />
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Nơi làm việc:
+            </label>
+            @{
+                var locs = Model.RandomPost.JobLocation.ToList();
+                count = locs.Count();
+                random = new Random().Next(0, count);
+                var loc = locs[random];
+            }
+            @loc.LocationName
+            <input type="hidden" name="locationName" value="@loc.LocationName" />
+        </div>
+        <hr />
+        <h3>Thông tin bản thân</h3>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Giới tính:
+            </label>
+            <select class="form-control" name="gender">
+                <option value="true" selected>Nam</option>
+                <option value="false">Nữ</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                3 tính cách của bạn:
+            </label>
+            @for (var i = 1; i <= 3; i++)
+            {
+                <select class="select2 form-control" name="personality@(i)">
+                    @foreach (var p in Startup.PERSONALITIES)
+                    {
+                        <!option value="@p.Key">
+                        @p.Value</!option>
+                    }
+                </select>
+                <br />
+            }
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Nơi sinh sống:
+            </label>
+            <select class="select2 form-control" name="liveLocation">
+                @foreach (var l in Startup.LOCATIONS)
+                {
+                    <!option value="@l">
+                    @l</!option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Lĩnh vực đang học:
+            </label>
+            <select class="select2 form-control" name="fieldStudy">
+                @foreach (var f in Startup.FIELDS)
+                {
+                    <!option value="@f.Key">
+                    @f.Value</!option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Trình độ:
+            </label>
+            <select class="select2 form-control" name="fieldLevel">
+                @foreach (var l in Startup.FIELD_LEVELS)
+                {
+                    <!option value="@l">
+                    @l</!option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Tình trạng sức khỏe:
+            </label>
+            <select class="select2 form-control" name="strengthStatus">
+                @foreach (var s in Startup.STRENGTH_STATUSES)
+                {
+                    <!option value="@s">
+                    @s</!option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                3 sở thích của bạn:
+            </label>
+            @for (var i = 1; i <= 3; i++)
+            {
+                <select class="select2 form-control" name="hobby@(i)">
+                    @foreach (var h in Startup.HOBBIES)
+                    {
+                        <!option value="@h.Key">
+                        @h.Value</!option>
+                    }
+                </select>
+                <br />
+            }
+        </div>
+        <div class="form-group">
+            <label class="font-weight-bold">
+                Đánh giá mức độ thích hợp với bạn (0 đến 10):
+            </label>
+            <input class="form-control" type="number" step="0.5" min="0" max="10" name="rating" />
+        </div>
+        <hr />
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="GỬI ĐI" />
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+        $('.select2').select2();
+    </script>
+}

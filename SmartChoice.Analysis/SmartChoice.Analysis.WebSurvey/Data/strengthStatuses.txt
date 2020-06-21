@@ -1,0 +1,5 @@
+Tốt
+Khá tốt
+Trung bình
+Thấp
+Kém
