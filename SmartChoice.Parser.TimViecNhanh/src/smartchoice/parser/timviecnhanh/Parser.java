@@ -227,6 +227,7 @@ public class Parser {
             }
             for (String item : jobItem.getCareerFields().getItem()) {
                 String itemTrim = item.trim();
+                System.out.println(itemTrim);
                 String fieldName = careerMapping.getOrDefault(itemTrim, itemTrim);
                 CareerField field = careerFieldService.findCareerFieldByName(fieldName).get(0);
                 if (field == null) {
