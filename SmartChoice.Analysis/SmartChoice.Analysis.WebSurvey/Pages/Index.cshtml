@@ -223,7 +223,8 @@
             <label class="font-weight-bold">
                 Đánh giá mức độ thích hợp với bạn (0 đến 10):
             </label>
-            <input class="form-control" type="number" step="0.5" min="0" max="10" name="rating" />
+            <input required
+                   class="form-control" type="number" step="0.5" min="0" max="10" name="rating" />
         </div>
         <hr />
         <div class="form-group">
@@ -235,5 +236,16 @@
 @section Scripts{
     <script>
         $('.select2').select2();
+        $('[name=gender]').val('@Html.Raw((Model.InputData?.gender == true)?"true":"false")').trigger('change');
+        $('[name=personality1]').val('@Html.Raw(Model.InputData?.personality1)').trigger('change');
+        $('[name=personality2]').val('@Html.Raw(Model.InputData?.personality2)').trigger('change');
+        $('[name=personality3]').val('@Html.Raw(Model.InputData?.personality3)').trigger('change');
+        $('[name=liveLocation]').val('@Html.Raw(Model.InputData?.liveLocation)').trigger('change');
+        $('[name=fieldStudy]').val(@Html.Raw((Model.InputData?.fieldStudy!= null)?Model.InputData.fieldStudy:0)).trigger('change');
+        $('[name=fieldLevel]').val('@Html.Raw(Model.InputData?.fieldLevel)').trigger('change');
+        $('[name=strengthStatus]').val('@Html.Raw(Model.InputData?.strengthStatus)').trigger('change');
+        $('[name=hobby1]').val('@Html.Raw(Model.InputData?.hobby1)').trigger('change');
+        $('[name=hobby2]').val('@Html.Raw(Model.InputData?.hobby2)').trigger('change');
+        $('[name=hobby3]').val('@Html.Raw(Model.InputData?.hobby3)').trigger('change');
     </script>
 }

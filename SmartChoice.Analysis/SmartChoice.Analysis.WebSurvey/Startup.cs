@@ -38,6 +38,15 @@ namespace SmartChoice.Analysis.WebSurvey
                 opt.UseLazyLoadingProxies();
             });
 
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddRazorPages();
         }
 
@@ -59,6 +68,7 @@ namespace SmartChoice.Analysis.WebSurvey
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

@@ -25,7 +25,7 @@ namespace SmartChoice.Analysis.Models
         public string personality2 { get; set; }
         public string personality3 { get; set; }
         public string liveLocation { get; set; }
-        public string fieldStudy { get; set; }
+        public int fieldStudy { get; set; }
         public string fieldLevel { get; set; }
         public string strengthStatus { get; set; }
         public string hobby1 { get; set; }

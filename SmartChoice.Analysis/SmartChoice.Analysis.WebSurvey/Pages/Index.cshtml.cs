@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SmartChoice.Analysis.Models;
 using SmartChoice.Analysis.WebSurvey.Models;
+using TNT.Core.Http;
 
 namespace SmartChoice.Analysis.WebSurvey.Pages
 {
@@ -23,6 +25,7 @@ namespace SmartChoice.Analysis.WebSurvey.Pages
         }
 
         public JobPost RandomPost { get; set; }
+        public JobRecommenderData InputData { get; set; }
 
         public void OnGet()
         {
@@ -30,10 +33,12 @@ namespace SmartChoice.Analysis.WebSurvey.Pages
             var pos = new Random().Next(0, count);
             var post = _context.JobPost.Skip(pos).Take(1).FirstOrDefault();
             RandomPost = post;
+            InputData = HttpContext.Session.Get<JobRecommenderData>("input_data");
         }
 
         public IActionResult OnPost(JobRecommenderData model)
         {
+            HttpContext.Session.Set("input_data", model);
             var dataStr = $"{model.jobName}\t" +
                 $"{model.salaryFrom}\t" +
                 $"{model.salaryTo}\t" +
