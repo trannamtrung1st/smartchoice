@@ -2,20 +2,25 @@
 <parserConfig xmlns="http://smartchoice.com/xml/parser-config">
   <baseUrl>https://www.timviecnhanh.com/</baseUrl>
   <pages>
+	<page>
+      <url>https://www.timviecnhanh.com/mien-nam/viec-lam-cong-nghe-thong-tin-c17.html</url>
+      <jobLinksXPath>//*[@id='job_fields_list']//*[contains(@class,'list-job-field-has-thumbnail')]//*[contains(@class,'intro')]/a[1]/@href</jobLinksXPath>
+      <pagingLinksXPath>//*[@class='page-navi ajax']//*[@class='item']/@href</pagingLinksXPath>
+    </page>
     <page>
       <url>https://www.timviecnhanh.com/vieclam</url>
       <jobLinksXPath>//*[@id='job-hot-content']/table/tbody/tr/td/a[contains(@class,'item title-link-visited')]/@href</jobLinksXPath>
-      <pagingLinksXPath>//*[@id="job-hot-content"]/table/tfoot/tr/td/div/a[@class='item job-hot-pagination']/@rel</pagingLinksXPath>
+      <pagingLinksXPath></pagingLinksXPath>
     </page>
     <page>
       <url>https://www.timviecnhanh.com/viec-lam/tuyen-gap</url>
       <jobLinksXPath>//*[@id='job-urgent-content']/table/tbody/tr/td/a[contains(@class,'item title-link-visited')]/@href</jobLinksXPath>
-      <pagingLinksXPath>//*[@id="job-urgent-content"]/table/tfoot/tr/td/div/a[@class='item job-urgent-pagination']/@rel</pagingLinksXPath>
+      <pagingLinksXPath></pagingLinksXPath>
     </page>
     <page>
       <url>https://www.timviecnhanh.com/vieclam24h</url>
       <jobLinksXPath>//*[@id='job-week-content']/table/tbody/tr/td/a[contains(@class,'item title-link-visited')]/@href</jobLinksXPath>
-      <pagingLinksXPath>//*[@id="job-week-content"]/table/tfoot/tr/td/div/a[@class='item job-week-pagination']/@rel</pagingLinksXPath>
+      <pagingLinksXPath></pagingLinksXPath>
     </page>
   </pages>
   <name>TVN</name>
@@ -77,6 +82,7 @@
     <item>Y tế~Y tế</item>
     <item>An ninh-Bảo vệ~An ninh-Bảo vệ</item>
     <item>Bán hàng~Kinh doanh</item>
+	<item>Báo chí/Biên tập viên~Báo chí-Truyền hình</item>
     <item>Báo chí-Truyền hình~Báo chí-Truyền hình</item>
     <item>Bảo hiểm~Bảo hiểm</item>
     <item>Biên-Phiên dịch~Biên-Phiên dịch</item>

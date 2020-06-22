@@ -3,6 +3,11 @@
   <baseUrl>https://vieclam24h.vn</baseUrl>
   <pages>
     <page>
+	  <url>https://vieclam24h.vn/mien-nam/viec-lam-chuyen-mon/it-phan-mem-c74.html</url>
+      <jobLinksXPath>//*[@class='media-heading']/a[1]/@href</jobLinksXPath>
+      <pagingLinksXPath>//*[@class='pagination']/li[not(@class)]/a/@href</pagingLinksXPath>
+    </page>
+    <page>
 	  <url>https://vieclam24h.vn/viec-lam-moi.html</url>
       <jobLinksXPath>//span[contains(@class,'title-blockjob-main')]/a[1]/@href</jobLinksXPath>
       <pagingLinksXPath>//*[@class='pagination']//li[contains(@class,'pagination')]/a/@href</pagingLinksXPath>
@@ -71,6 +76,7 @@
     <item>Y tế~Y tế</item>
     <item>An ninh-Bảo vệ~An ninh-Bảo vệ</item>
     <item>Bán hàng~Kinh doanh</item>
+	<item>Báo chí/Biên tập viên~Báo chí-Truyền hình</item>
     <item>Báo chí-Truyền hình~Báo chí-Truyền hình</item>
     <item>Bảo hiểm~Bảo hiểm</item>
     <item>Biên-Phiên dịch~Biên-Phiên dịch</item>

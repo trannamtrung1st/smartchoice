@@ -29,16 +29,22 @@ namespace SmartChoice.Analysis.WebSurvey.Pages
 
         public void OnGet()
         {
-            var count = _context.JobPost.Count();
-            var pos = new Random().Next(0, count);
-            var post = _context.JobPost.Skip(pos).Take(1).FirstOrDefault();
-            RandomPost = post;
             InputData = HttpContext.Session.Get<JobRecommenderData>("input_data");
+            if (InputData != null)
+            {
+                var query = _context.JobPost
+                    .Where(p => p.JobField.Any(f => f.CareerFieldId == InputData.fieldStudy));
+                var count = query.Count();
+                var pos = new Random().Next(0, count);
+                var post = query.Skip(pos).Take(1).FirstOrDefault();
+                RandomPost = post;
+            }
         }
 
         public IActionResult OnPost(JobRecommenderData model)
         {
             HttpContext.Session.Set("input_data", model);
+            if (model.jobName == null) return LocalRedirect("/");
             var dataStr = $"{model.jobName}\t" +
                 $"{model.salaryFrom}\t" +
                 $"{model.salaryTo}\t" +

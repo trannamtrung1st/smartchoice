@@ -46,6 +46,7 @@ import smartchoice.data.models.Company;
 import smartchoice.data.models.JobPost;
 import smartchoice.data.models.Location;
 import smartchoice.helper.DateHelper;
+import smartchoice.helper.FileHelper;
 import smartchoice.helper.HttpHelper;
 import smartchoice.helper.RegexHelper;
 import smartchoice.helper.XMLHelper;
@@ -118,7 +119,18 @@ public class Parser {
         //parse DOM and use XPath to get links
         Document doc = XMLHelper.parseDOMFromString(content);
         getLinks(jobLinks, doc, startPage);
-        //can not parsed because paging loaded by javascript ...
+        //parse another pages
+        if (startPage.getPagingLinksXPath().trim().isEmpty()) {
+            return;
+        }
+        NodeList pageLinkNodes = (NodeList) xpath.evaluate(startPage.getPagingLinksXPath(), doc, XPathConstants.NODESET);
+        for (int i = 0; i < pageLinkNodes.getLength(); i++) {
+            String pageLink = pageLinkNodes.item(i).getNodeValue();
+            pageLink = resolveFullUrl(startPage, pageLink);
+            content = preprocess(pageLink);
+            doc = XMLHelper.parseDOMFromString(content);
+            getLinks(jobLinks, doc, startPage);
+        }
     }
 
     protected void filterLinks() {
@@ -306,10 +318,6 @@ public class Parser {
     protected String resolveFullUrl(ParserConfig.Pages.Page page, String relPath) {
         return relPath.startsWith("http") ? relPath
                 : ((parserConfig.getBaseUrl() + (relPath.startsWith("/") ? relPath : "/" + relPath)));
-    }
-
-    protected String resolveFullPagingUrl(ParserConfig.Pages.Page page, String relPath) {
-        return page.getUrl() + parserConfig.getPagingAppendStr().replace("{p}", relPath);
     }
 
 }

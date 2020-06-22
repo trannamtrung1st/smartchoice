@@ -1,0 +1,10 @@
+<page>
+	  <url>https://vieclam24h.vn/viec-lam-moi.html</url>
+      <jobLinksXPath>//span[contains(@class,'title-blockjob-main')]/a[1]/@href</jobLinksXPath>
+      <pagingLinksXPath>//*[@class='pagination']//li[contains(@class,'pagination')]/a/@href</pagingLinksXPath>
+    </page>
+	<page>
+	  <url>https://vieclam24h.vn/viec-lam-tuyen-gap.html</url>
+      <jobLinksXPath>//span[contains(@class,'title-blockjob-main')]/a[1]/@href</jobLinksXPath>
+      <pagingLinksXPath>//*[@class='pagination']//li[contains(@class,'pagination')]/a/@href</pagingLinksXPath>
+    </page>

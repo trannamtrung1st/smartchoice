@@ -35,16 +35,16 @@
     </updatedDate>
     <company>
       <code>
-        <xsl:value-of select="div[33]/a/@href"/>
+        <xsl:value-of select="//*[contains(@class,'title-employer')]/a/@href"/>
       </code>
       <detailUrl>
-        <xsl:value-of select="div[33]/a/@href"/>
+        <xsl:value-of select="//*[contains(@class,'title-employer')]/a/@href"/>
       </detailUrl>
       <name>
-        <xsl:value-of select="div[33]/a"/>
+        <xsl:value-of select="//*[contains(@class,'title-employer')]/a"/>
       </name>
       <image>
-        <xsl:value-of select="div[32]/div/div/div/div/img/@src"/>
+        <xsl:value-of select="//*[contains(@class,'content-sidebar box_vnb_right')]//img/@src"/>
       </image>
       <address>
         <xsl:value-of select="p[2]/text()"/>

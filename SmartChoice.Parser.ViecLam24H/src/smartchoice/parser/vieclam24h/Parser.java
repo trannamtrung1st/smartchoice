@@ -45,6 +45,7 @@ import smartchoice.data.models.Company;
 import smartchoice.data.models.JobPost;
 import smartchoice.data.models.Location;
 import smartchoice.helper.DateHelper;
+import smartchoice.helper.FileHelper;
 import smartchoice.helper.HttpHelper;
 import smartchoice.helper.RegexHelper;
 import smartchoice.helper.XMLHelper;
@@ -113,11 +114,14 @@ public class Parser {
 
     protected void parsePageToGetLinks(ParserConfig.Pages.Page startPage) throws IOException, JAXBException, ParserConfigurationException, SAXException, XPathExpressionException {
         String content = preprocess(startPage.getUrl());
-
+//        FileHelper.writeToFile(content, "temp.html");
         //parse DOM and use XPath to get links
         Document doc = XMLHelper.parseDOMFromString(content);
         getLinks(jobLinks, doc, startPage);
         //parse another pages
+        if (startPage.getPagingLinksXPath().trim().isEmpty()) {
+            return;
+        }
         NodeList pageLinkNodes = (NodeList) xpath.evaluate(startPage.getPagingLinksXPath(), doc, XPathConstants.NODESET);
         for (int i = 0; i < pageLinkNodes.getLength(); i++) {
             String pageLink = pageLinkNodes.item(i).getNodeValue();

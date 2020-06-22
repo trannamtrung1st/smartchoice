@@ -1,0 +1,15 @@
+<page>
+      <url>https://www.timviecnhanh.com/vieclam</url>
+      <jobLinksXPath>//*[@id='job-hot-content']/table/tbody/tr/td/a[contains(@class,'item title-link-visited')]/@href</jobLinksXPath>
+      <pagingLinksXPath></pagingLinksXPath>
+    </page>
+    <page>
+      <url>https://www.timviecnhanh.com/viec-lam/tuyen-gap</url>
+      <jobLinksXPath>//*[@id='job-urgent-content']/table/tbody/tr/td/a[contains(@class,'item title-link-visited')]/@href</jobLinksXPath>
+      <pagingLinksXPath></pagingLinksXPath>
+    </page>
+    <page>
+      <url>https://www.timviecnhanh.com/vieclam24h</url>
+      <jobLinksXPath>//*[@id='job-week-content']/table/tbody/tr/td/a[contains(@class,'item title-link-visited')]/@href</jobLinksXPath>
+      <pagingLinksXPath></pagingLinksXPath>
+    </page>
